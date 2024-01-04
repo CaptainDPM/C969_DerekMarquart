@@ -32,10 +32,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonTestConn = new System.Windows.Forms.Button();
+            this.labelTimeZone = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Welcome
@@ -72,25 +74,27 @@
             this.textBox2.Size = new System.Drawing.Size(199, 20);
             this.textBox2.TabIndex = 3;
             // 
-            // button1
+            // buttonLogin
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(314, 382);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogin.Location = new System.Drawing.Point(314, 382);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogin.TabIndex = 4;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonExit
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(438, 382);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Exit";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExit.Location = new System.Drawing.Point(438, 382);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(75, 23);
+            this.buttonExit.TabIndex = 5;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -98,7 +102,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(226, 223);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 16);
+            this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "Username:";
             // 
@@ -108,9 +112,30 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(229, 307);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 16);
+            this.label3.Size = new System.Drawing.Size(80, 16);
             this.label3.TabIndex = 7;
             this.label3.Text = "Password:";
+            // 
+            // buttonTestConn
+            // 
+            this.buttonTestConn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonTestConn.Location = new System.Drawing.Point(314, 456);
+            this.buttonTestConn.Name = "buttonTestConn";
+            this.buttonTestConn.Size = new System.Drawing.Size(199, 23);
+            this.buttonTestConn.TabIndex = 8;
+            this.buttonTestConn.Text = "Test Connection";
+            this.buttonTestConn.UseVisualStyleBackColor = true;
+            this.buttonTestConn.Click += new System.EventHandler(this.buttonTestConn_Click);
+            // 
+            // labelTimeZone
+            // 
+            this.labelTimeZone.AutoSize = true;
+            this.labelTimeZone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTimeZone.Location = new System.Drawing.Point(258, 509);
+            this.labelTimeZone.Name = "labelTimeZone";
+            this.labelTimeZone.Size = new System.Drawing.Size(51, 16);
+            this.labelTimeZone.TabIndex = 9;
+            this.labelTimeZone.Text = "label4";
             // 
             // Form1
             // 
@@ -118,16 +143,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(788, 548);
+            this.Controls.Add(this.labelTimeZone);
+            this.Controls.Add(this.buttonTestConn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonExit);
+            this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Welcome);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,10 +167,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonTestConn;
+        private System.Windows.Forms.Label labelTimeZone;
     }
 }
 
