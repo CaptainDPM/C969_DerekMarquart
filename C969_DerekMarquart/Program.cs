@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +18,12 @@ namespace C969_DerekMarquart
         [STAThread]
         static void Main()
         {
+            CultureInfo userCulture = CultureInfo.CurrentCulture;
+
+            Thread.CurrentThread.CurrentCulture = userCulture;
+            Thread.CurrentThread.CurrentUICulture = userCulture;
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using C969_DerekMarquart.Properties;
+using System.Globalization;
 
 namespace C969_DerekMarquart
 {
@@ -24,8 +26,8 @@ namespace C969_DerekMarquart
             timer.Tick += Timer_Tick;
 
             timer.Start();
-
         }
+
 
         private void Timer_Tick(object sender, EventArgs e)
         {
