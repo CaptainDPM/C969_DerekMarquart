@@ -348,7 +348,7 @@
     <value>8</value>
   </data>
   <data name="buttonTestConn.Text" xml:space="preserve">
-    <value>Test Connection</value>
+    <value>Register</value>
   </data>
   <data name="&gt;&gt;buttonTestConn.Name" xml:space="preserve">
     <value>buttonTestConn</value>

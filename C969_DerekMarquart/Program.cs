@@ -18,30 +18,11 @@ namespace C969_DerekMarquart
         [STAThread]
         static void Main()
         {
-            CultureInfo userCulture = CultureInfo.CurrentCulture;
-
-            Thread.CurrentThread.CurrentCulture = userCulture;
-            Thread.CurrentThread.CurrentUICulture = userCulture;
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string constr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
 
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(constr);
-
-                conn.Open();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            Application.Run(new Form1());
+            Application.Run(new LoginForm());
         }
     }
 }
