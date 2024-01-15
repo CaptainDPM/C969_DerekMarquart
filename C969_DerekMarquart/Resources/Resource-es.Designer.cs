@@ -59,5 +59,68 @@ namespace C969_DerekMarquart.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salida.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acceso.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña:.
+        /// </summary>
+        internal static string Password_ {
+            get {
+                return ResourceManager.GetString("Password:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Por favor inicie sesión a continuación..
+        /// </summary>
+        internal static string Please_log_in_below_ {
+            get {
+                return ResourceManager.GetString("Please log in below.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registro.
+        /// </summary>
+        internal static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre de usuario:.
+        /// </summary>
+        internal static string Username_ {
+            get {
+                return ResourceManager.GetString("Username:", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ¡Bienvenida!.
+        /// </summary>
+        internal static string Welcome_ {
+            get {
+                return ResourceManager.GetString("Welcome!", resourceCulture);
+            }
+        }
     }
 }
