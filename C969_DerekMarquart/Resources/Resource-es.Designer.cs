@@ -63,63 +63,63 @@ namespace C969_DerekMarquart.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Salida.
         /// </summary>
-        internal static string Exit {
+        internal static string buttonExit {
             get {
-                return ResourceManager.GetString("Exit", resourceCulture);
+                return ResourceManager.GetString("buttonExit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Acceso.
         /// </summary>
-        internal static string Login {
+        internal static string buttonLogin {
             get {
-                return ResourceManager.GetString("Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contraseña:.
-        /// </summary>
-        internal static string Password_ {
-            get {
-                return ResourceManager.GetString("Password:", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Por favor inicie sesión a continuación..
-        /// </summary>
-        internal static string Please_log_in_below_ {
-            get {
-                return ResourceManager.GetString("Please log in below.", resourceCulture);
+                return ResourceManager.GetString("buttonLogin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registro.
         /// </summary>
-        internal static string Register {
+        internal static string buttonTestConn {
             get {
-                return ResourceManager.GetString("Register", resourceCulture);
+                return ResourceManager.GetString("buttonTestConn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Por favor inicie sesión a continuación..
+        /// </summary>
+        internal static string label1 {
+            get {
+                return ResourceManager.GetString("label1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nombre de usuario:.
         /// </summary>
-        internal static string Username_ {
+        internal static string label2 {
             get {
-                return ResourceManager.GetString("Username:", resourceCulture);
+                return ResourceManager.GetString("label2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña:.
+        /// </summary>
+        internal static string label3 {
+            get {
+                return ResourceManager.GetString("label3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ¡Bienvenida!.
         /// </summary>
-        internal static string Welcome_ {
+        internal static string labelWelcome {
             get {
-                return ResourceManager.GetString("Welcome!", resourceCulture);
+                return ResourceManager.GetString("labelWelcome", resourceCulture);
             }
         }
     }
