@@ -20,58 +20,44 @@ namespace C969_DerekMarquart
         private Timer timer = new Timer();
         public string loggedInUsername = null;
         private CultureInfo CI { get; set; }
-        ResourceManager locrm = new ResourceManager("C969_DerekMarquart.Resources.Resource", typeof(LoginForm).Assembly);
 
-        private CultureInfo CheckLanguage()
-        {
-            string currentCultureName = CultureInfo.CurrentCulture.Name;
-            CI = new CultureInfo(currentCultureName);
-
-            if (CultureInfo.CurrentCulture.Name == "es-Es")
-            {
-                CI = new CultureInfo("es-ES");
-                labelWelcome.Text = locrm.GetString("Welcome", CI);
-                label1.Text = locrm.GetString("label1", CI);
-                label2.Text = locrm.GetString("label2", CI);
-                label3.Text = locrm.GetString("label3", CI);
-                labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
-                textBox1.Text = locrm.GetString("textBox1", CI);
-                textBox2.Text = locrm.GetString("textBox2", CI);
-                buttonLogin.Text = locrm.GetString("buttonLogin", CI);
-                buttonExit.Text = locrm.GetString("buttonExit", CI);
-                buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
-
-                return CI;
-            }
-            else
-            {
-                CI = new CultureInfo("en-EN");
-                labelWelcome.Text = locrm.GetString("Welcome", CI);
-                label1.Text = locrm.GetString("label1", CI);
-                label2.Text = locrm.GetString("label2", CI);
-                label3.Text = locrm.GetString("label3", CI);
-                labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
-                textBox1.Text = locrm.GetString("textBox1", CI);
-                textBox2.Text = locrm.GetString("textBox2", CI);
-                buttonLogin.Text = locrm.GetString("buttonLogin", CI);
-                buttonExit.Text = locrm.GetString("buttonExit", CI);
-                buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
-
-                return CI;
-            }
-        }
 
         public LoginForm()
         {
             InitializeComponent();
-
+            CheckLanguage();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
 
             timer.Start();
-            CheckLanguage();
         }
 
+
+        private CultureInfo CheckLanguage()
+        {
+            CultureInfo userCulture = CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture;
+
+            CI = new CultureInfo(userCulture.Name);
+            Console.WriteLine("Detected culture is: ", CI.Name);
+
+            //Change the region to Spanish(Chile) for translation.
+
+            if (CultureInfo.CurrentCulture.Name == "es-CL")
+            {
+                labelWelcome.Text = "¡Bienvenida!";
+                label1.Text = "Por favor inicie sesión a continuación.";
+                label2.Text = "Nombre de usuario:";
+                label3.Text = "Contraseña:";
+                buttonLogin.Text = "Acceso";
+                buttonExit.Text = "Salida";
+                buttonTestConn.Text = "Registro";
+            }
+            else
+            {
+                CI = new CultureInfo("en-EN");
+            }
+            return CI;
+        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -95,7 +81,14 @@ namespace C969_DerekMarquart
                 conn = new MySqlConnection(constr);
 
                 conn.Open();
-                MessageBox.Show("Connection has been established.", "Connection Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (CultureInfo.CurrentCulture.Name == "es-CL")
+                {
+                    MessageBox.Show("Se ha establecido la conexión.", "Confirmación de conexión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("Connection has been established.", "Connection Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             catch(MySqlException ex)
             {
@@ -115,7 +108,14 @@ namespace C969_DerekMarquart
 
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPass))
             {
-                MessageBox.Show("Please enter both a username and password.", "Username/Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (CultureInfo.CurrentCulture.Name == "es-CL")
+                {
+                    MessageBox.Show("Por favor ingrese un nombre de usuario y contraseña.", "Error de nombre de usuario/contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Please enter both a username and password.", "Username/Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -140,7 +140,14 @@ namespace C969_DerekMarquart
                         if (count > 0)
                         {
                             loggedInUsername = userName;
-                            MessageBox.Show("Login successful!");
+                            if (CultureInfo.CurrentCulture.Name == "es-CL")
+                            {
+                                MessageBox.Show("Inicio de sesión exitosa!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Login successful!");
+                            }
                             MainScreen mainScreen = new MainScreen();
                             mainScreen.labelUsername.Text = "Logged in as: " + userName;
                             mainScreen.LoginFormInstance = this;
@@ -152,7 +159,14 @@ namespace C969_DerekMarquart
                         }
                         else
                         {
-                            MessageBox.Show("Invalid username or password. Please try again.");
+                            if (CultureInfo.CurrentCulture.Name == "es-CL")
+                            {
+                                MessageBox.Show("Usuario o contraseña invalido. Inténtalo de nuevo.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password. Please try again.");
+                            }
                         }
                     }
                 }

@@ -112,10 +112,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Resource-es.Designer.cs">
+    <Compile Include="Resources\Resource.es.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource-es.resx</DependentUpon>
+      <DependentUpon>Resource.es.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -137,9 +137,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Resources\Resource-es.resx">
+    <EmbeddedResource Include="Resources\Resource.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource-es.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
