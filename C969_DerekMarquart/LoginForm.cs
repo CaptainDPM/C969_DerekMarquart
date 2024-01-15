@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using C969_DerekMarquart.Properties;
 using System.Globalization;
+using System.Resources;
 
 namespace C969_DerekMarquart
 {
@@ -18,6 +19,28 @@ namespace C969_DerekMarquart
     {
         private Timer timer = new Timer();
         public string loggedInUsername = null;
+        private CultureInfo CI { get; set; }
+        ResourceManager locrm = new ResourceManager("C969_DerekMarquart.LoginForm", typeof()
+
+        private CultureInfo CheckLanguage()
+        {
+            CultureInfo usersCulture = CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture;
+
+            CI = new CultureInfo(usersCulture.Name);
+
+            Welcome.Text = locrm.GetString("Welcome", CI);
+            label1.Text = locrm.GetString("label1", CI);
+            label2.Text = locrm.GetString("label2", CI);
+            label3.Text = locrm.GetString("label3", CI);
+            labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
+            textBox1.Text = locrm.GetString("textBox1", CI);
+            textBox2.Text = locrm.GetString("textBox2", CI);
+            buttonLogin.Text = locrm.GetString("buttonLogin", CI);
+            buttonExit.Text = locrm.GetString("buttonExit", CI);
+            buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
+
+            return CI;
+        }
 
         public LoginForm()
         {
@@ -27,6 +50,7 @@ namespace C969_DerekMarquart
             timer.Tick += Timer_Tick;
 
             timer.Start();
+            CheckLanguage();
         }
 
 

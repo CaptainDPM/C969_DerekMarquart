@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace C969_DerekMarquart.Properties {
+namespace C969_DerekMarquart.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace C969_DerekMarquart.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    internal class Resource_es {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings() {
+        internal Resource_es() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace C969_DerekMarquart.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("C969_DerekMarquart.Properties.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("C969_DerekMarquart.Resources.Resource-es", typeof(Resource_es).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,24 +57,6 @@ namespace C969_DerekMarquart.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome!.
-        /// </summary>
-        internal static string FormTitle {
-            get {
-                return ResourceManager.GetString("FormTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string LocalizedLabel {
-            get {
-                return ResourceManager.GetString("LocalizedLabel", resourceCulture);
             }
         }
     }
