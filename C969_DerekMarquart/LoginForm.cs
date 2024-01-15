@@ -20,26 +20,45 @@ namespace C969_DerekMarquart
         private Timer timer = new Timer();
         public string loggedInUsername = null;
         private CultureInfo CI { get; set; }
-        ResourceManager locrm = new ResourceManager("C969_DerekMarquart.LoginForm", typeof()
+        ResourceManager locrm = new ResourceManager("C969_DerekMarquart.Resources.Resource", typeof(LoginForm).Assembly);
 
         private CultureInfo CheckLanguage()
         {
-            CultureInfo usersCulture = CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture;
+            string currentCultureName = CultureInfo.CurrentCulture.Name;
+            CI = new CultureInfo(currentCultureName);
 
-            CI = new CultureInfo(usersCulture.Name);
+            if (CultureInfo.CurrentCulture.Name == "es-Es")
+            {
+                CI = new CultureInfo("es-ES");
+                labelWelcome.Text = locrm.GetString("Welcome", CI);
+                label1.Text = locrm.GetString("label1", CI);
+                label2.Text = locrm.GetString("label2", CI);
+                label3.Text = locrm.GetString("label3", CI);
+                labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
+                textBox1.Text = locrm.GetString("textBox1", CI);
+                textBox2.Text = locrm.GetString("textBox2", CI);
+                buttonLogin.Text = locrm.GetString("buttonLogin", CI);
+                buttonExit.Text = locrm.GetString("buttonExit", CI);
+                buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
 
-            Welcome.Text = locrm.GetString("Welcome", CI);
-            label1.Text = locrm.GetString("label1", CI);
-            label2.Text = locrm.GetString("label2", CI);
-            label3.Text = locrm.GetString("label3", CI);
-            labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
-            textBox1.Text = locrm.GetString("textBox1", CI);
-            textBox2.Text = locrm.GetString("textBox2", CI);
-            buttonLogin.Text = locrm.GetString("buttonLogin", CI);
-            buttonExit.Text = locrm.GetString("buttonExit", CI);
-            buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
+                return CI;
+            }
+            else
+            {
+                CI = new CultureInfo("en-EN");
+                labelWelcome.Text = locrm.GetString("Welcome", CI);
+                label1.Text = locrm.GetString("label1", CI);
+                label2.Text = locrm.GetString("label2", CI);
+                label3.Text = locrm.GetString("label3", CI);
+                labelTimeZone.Text = locrm.GetString("labelTimeZone", CI);
+                textBox1.Text = locrm.GetString("textBox1", CI);
+                textBox2.Text = locrm.GetString("textBox2", CI);
+                buttonLogin.Text = locrm.GetString("buttonLogin", CI);
+                buttonExit.Text = locrm.GetString("buttonExit", CI);
+                buttonTestConn.Text = locrm.GetString("buttonTestConn", CI);
 
-            return CI;
+                return CI;
+            }
         }
 
         public LoginForm()

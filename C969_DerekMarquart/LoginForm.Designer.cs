@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-            this.Welcome = new System.Windows.Forms.Label();
+            this.labelWelcome = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -41,10 +41,10 @@
             this.labelTimeZone = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Welcome
+            // labelWelcome
             // 
-            resources.ApplyResources(this.Welcome, "Welcome");
-            this.Welcome.Name = "Welcome";
+            resources.ApplyResources(this.labelWelcome, "labelWelcome");
+            this.labelWelcome.Name = "labelWelcome";
             // 
             // label1
             // 
@@ -97,7 +97,7 @@
             resources.ApplyResources(this.labelTimeZone, "labelTimeZone");
             this.labelTimeZone.Name = "labelTimeZone";
             // 
-            // Form1
+            // LoginForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,8 +111,8 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Welcome);
-            this.Name = "Form1";
+            this.Controls.Add(this.labelWelcome);
+            this.Name = "LoginForm";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -121,7 +121,7 @@
 
         #endregion
 
-        public System.Windows.Forms.Label Welcome;
+        public System.Windows.Forms.Label labelWelcome;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.TextBox textBox2;

@@ -118,35 +118,35 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Welcome.AutoSize" type="System.Boolean, mscorlib">
+  <data name="labelWelcome.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Welcome.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelWelcome.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 20.25pt, style=Bold</value>
   </data>
-  <data name="Welcome.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelWelcome.Location" type="System.Drawing.Point, System.Drawing">
     <value>340, 70</value>
   </data>
-  <data name="Welcome.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelWelcome.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 31</value>
   </data>
-  <data name="Welcome.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelWelcome.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="Welcome.Text" xml:space="preserve">
+  <data name="labelWelcome.Text" xml:space="preserve">
     <value>Welcome!</value>
   </data>
-  <data name="&gt;&gt;Welcome.Name" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="&gt;&gt;labelWelcome.Name" xml:space="preserve">
+    <value>labelWelcome</value>
   </data>
-  <data name="&gt;&gt;Welcome.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelWelcome.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Welcome.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelWelcome.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;Welcome.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelWelcome.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
@@ -405,7 +405,7 @@
     <value>Form1</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Form1</value>
+    <value>LoginForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
