@@ -24,12 +24,10 @@ namespace C969_DerekMarquart
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
-            dataGridAppt.ReadOnly = true;
-            Appointment.PopulateAppt();
             var bindingAppt = new BindingSource();
             bindingAppt.DataSource = Appointment.Appointments;
-            dataGridAppt.DataSource = bindingAppt;
-            
+            dataGridMembers.DataSource = bindingAppt;
+            Appointment.PopulateAppt();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
