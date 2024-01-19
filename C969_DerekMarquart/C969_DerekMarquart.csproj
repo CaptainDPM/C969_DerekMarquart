@@ -99,6 +99,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appointment.cs" />
+    <Compile Include="CreateUpdateAppt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateUpdateAppt.Designer.cs">
+      <DependentUpon>CreateUpdateAppt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateUpdateCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateUpdateCustomer.Designer.cs">
+      <DependentUpon>CreateUpdateCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +135,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CreateUpdateAppt.resx">
+      <DependentUpon>CreateUpdateAppt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateUpdateCustomer.resx">
+      <DependentUpon>CreateUpdateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

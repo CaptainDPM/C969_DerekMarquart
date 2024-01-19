@@ -58,7 +58,7 @@ namespace C969_DerekMarquart
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(1012, 713);
+            this.buttonExit.Location = new System.Drawing.Point(1012, 753);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(156, 48);
             this.buttonExit.TabIndex = 1;
@@ -68,9 +68,12 @@ namespace C969_DerekMarquart
             // 
             // dataGridMembers
             // 
+            this.dataGridMembers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMembers.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dataGridMembers.Location = new System.Drawing.Point(16, 48);
             this.dataGridMembers.Name = "dataGridMembers";
+            this.dataGridMembers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridMembers.Size = new System.Drawing.Size(1152, 255);
             this.dataGridMembers.TabIndex = 2;
             // 
@@ -83,6 +86,7 @@ namespace C969_DerekMarquart
             this.buttonCreate.TabIndex = 3;
             this.buttonCreate.Text = "Create";
             this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
             // 
             // buttonUpdate
             // 
@@ -93,6 +97,7 @@ namespace C969_DerekMarquart
             this.buttonUpdate.TabIndex = 4;
             this.buttonUpdate.Text = "Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonDelete
             // 
@@ -106,36 +111,39 @@ namespace C969_DerekMarquart
             // 
             // dataGridAppts
             // 
+            this.dataGridAppts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridAppts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAppts.Location = new System.Drawing.Point(16, 450);
+            this.dataGridAppts.Location = new System.Drawing.Point(12, 372);
             this.dataGridAppts.Name = "dataGridAppts";
-            this.dataGridAppts.Size = new System.Drawing.Size(748, 266);
+            this.dataGridAppts.Size = new System.Drawing.Size(1156, 255);
             this.dataGridAppts.TabIndex = 6;
             // 
             // buttonCreateAppt
             // 
             this.buttonCreateAppt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCreateAppt.Location = new System.Drawing.Point(1012, 450);
+            this.buttonCreateAppt.Location = new System.Drawing.Point(257, 753);
             this.buttonCreateAppt.Name = "buttonCreateAppt";
             this.buttonCreateAppt.Size = new System.Drawing.Size(156, 48);
             this.buttonCreateAppt.TabIndex = 7;
             this.buttonCreateAppt.Text = "Create";
             this.buttonCreateAppt.UseVisualStyleBackColor = true;
+            this.buttonCreateAppt.Click += new System.EventHandler(this.buttonCreateAppt_Click);
             // 
             // buttonModAppt
             // 
             this.buttonModAppt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonModAppt.Location = new System.Drawing.Point(1012, 516);
+            this.buttonModAppt.Location = new System.Drawing.Point(441, 753);
             this.buttonModAppt.Name = "buttonModAppt";
             this.buttonModAppt.Size = new System.Drawing.Size(156, 48);
             this.buttonModAppt.TabIndex = 8;
             this.buttonModAppt.Text = "Update";
             this.buttonModAppt.UseVisualStyleBackColor = true;
+            this.buttonModAppt.Click += new System.EventHandler(this.buttonModAppt_Click);
             // 
             // buttonDelAppt
             // 
             this.buttonDelAppt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelAppt.Location = new System.Drawing.Point(1012, 581);
+            this.buttonDelAppt.Location = new System.Drawing.Point(630, 753);
             this.buttonDelAppt.Name = "buttonDelAppt";
             this.buttonDelAppt.Size = new System.Drawing.Size(156, 48);
             this.buttonDelAppt.TabIndex = 9;
@@ -145,7 +153,7 @@ namespace C969_DerekMarquart
             // buttonReports
             // 
             this.buttonReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReports.Location = new System.Drawing.Point(1012, 645);
+            this.buttonReports.Location = new System.Drawing.Point(827, 753);
             this.buttonReports.Name = "buttonReports";
             this.buttonReports.Size = new System.Drawing.Size(156, 48);
             this.buttonReports.TabIndex = 10;
@@ -154,7 +162,7 @@ namespace C969_DerekMarquart
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(773, 516);
+            this.monthCalendar1.Location = new System.Drawing.Point(18, 639);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 11;
             // 
@@ -163,7 +171,7 @@ namespace C969_DerekMarquart
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1180, 773);
+            this.ClientSize = new System.Drawing.Size(1180, 813);
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.buttonReports);
             this.Controls.Add(this.buttonDelAppt);
