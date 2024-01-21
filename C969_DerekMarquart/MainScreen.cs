@@ -33,8 +33,13 @@ namespace C969_DerekMarquart
 
         private void DisplayCustomers()
         {
+            conn.Close();
             conn.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM customer", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT customer.customerName AS Name, address.address AS Address, address.phone AS Phone, city.city AS City, country.country AS Country " +
+                                        "FROM customer customer " +
+                                        "JOIN address address ON customer.addressId = address.addressId " +
+                                        "JOIN city city ON address.cityId = city.cityId " +
+                                        "JOIN country country ON city.countryId = country.countryId", conn);
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
@@ -67,8 +72,24 @@ namespace C969_DerekMarquart
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer();
-            createUpdateCustomer.Show();
+            if (dataGridMembers.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridMembers.SelectedRows[0];
+                string customerName = selectedRow.Cells["Name"].Value.ToString();
+                string address = selectedRow.Cells["Address"].Value.ToString();
+                string phone = selectedRow.Cells["Phone"].Value.ToString();
+                string city = selectedRow.Cells["City"].Value.ToString();
+                string country = selectedRow.Cells["Country"].Value.ToString();
+
+                CreateUpdateCustomer updateCustomerForm = new CreateUpdateCustomer(customerName, address, phone, city, country);
+                updateCustomerForm.ShowDialog();
+
+                DisplayCustomers();
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to update.");
+            }
         }
 
         private void buttonCreateAppt_Click(object sender, EventArgs e)
