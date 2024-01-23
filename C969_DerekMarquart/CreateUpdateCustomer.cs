@@ -13,6 +13,7 @@ namespace C969_DerekMarquart
 {
     public partial class CreateUpdateCustomer : Form
     {
+        public MainScreen MainFormInstance { get; set; }
         private bool isUpdateMode = false;
         MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
 
@@ -34,81 +35,131 @@ namespace C969_DerekMarquart
 
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {     
+            this.Close();
+        }
+
+        private void buttonSave_Click_1(object sender, EventArgs e)
         {
             try
             {
                 conn.Open();
-
+                
                 if (isUpdateMode)
                 {
-            // Update customer table
                     MySqlCommand cmd = new MySqlCommand("UPDATE customer " +
                                                 "SET " +
                                                 "customerName = @customerName " +
                                                 "WHERE " +
-                                                "customerId = @customerId", conn);
+                                                "customerName = @customerName", conn);
 
-            // Add parameters
                     cmd.Parameters.AddWithValue("@customerName", textBoxName.Text);
-                    cmd.Parameters.AddWithValue("@customerId", "SELECT customerId FROM customer WHERE customerName = @customerName;");
 
-            // Execute the update command for the customer table
                     cmd.ExecuteNonQuery();
 
-            // Update address table
                     MySqlCommand cmdTwo = new MySqlCommand("UPDATE address " +
                                                     "SET " +
                                                     "address = @address, " +
                                                     "phone = @phone " +
                                                     "WHERE " +
-                                                    "addressId = @addressId", conn);
+                                                    "address = @address " +
+                                                    "AND " +
+                                                    "phone = @phone", conn);
 
-            // Add parameters
                     cmdTwo.Parameters.AddWithValue("@address", textBoxAddress.Text);
                     cmdTwo.Parameters.AddWithValue("@phone", textBoxPhone.Text);
-                    cmdTwo.Parameters.AddWithValue("@addressId", "SELECT addressId FROM address WHERE address = @address;");
 
-            // Execute the update command for the address table
                     cmdTwo.ExecuteNonQuery();
 
-            // Update city table
                     MySqlCommand cmdThree = new MySqlCommand("UPDATE city " +
                                                     "SET " +
                                                     "city = @city " +
                                                     "WHERE " +
-                                                    "cityId = @cityId", conn);
+                                                    "city = @city", conn);
 
-            // Add parameters
                     cmdThree.Parameters.AddWithValue("@city", textBoxCity.Text);
-                    cmdThree.Parameters.AddWithValue("@cityId", "SELECT cityId FROM city WHERE city = @city;");
 
-            // Execute the update command for the city table
                     cmdThree.ExecuteNonQuery();
 
-            // Update country table
                     MySqlCommand cmdFour = new MySqlCommand("UPDATE country " +
                                                     "SET " +
                                                     "country = @country " +
                                                     "WHERE " +
-                                                    "countryId = @countryId", conn);
+                                                    "country = @country", conn);
 
-            // Add parameters
                     cmdFour.Parameters.AddWithValue("@country", textBoxCountry.Text);
-                    cmdFour.Parameters.AddWithValue("@countryId", "SELECT countryId FROM country WHERE country = @country;");
 
-            // Execute the update command for the country table
                     cmdFour.ExecuteNonQuery();
+
+                    MessageBox.Show("Update complete.");
+
+                    MainFormInstance.RefreshCustomerData();
 
                     this.Close();
                 }
                 else
                 {
-            // Handle insert logic for new customer
+                    try
+                    {
+                        MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerName) VALUES (@customerName);", conn);
+
+                        cmdInsert.Parameters.AddWithValue("@customerName", textBoxName.Text);
+
+                        cmdInsert.ExecuteNonQuery();
+
+                        long newCustomerId = cmdInsert.LastInsertedId;
+
+                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (address, phone) VALUES (@address, @phone);", conn);
+
+                        cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
+                        cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
+
+                        cmdInsertAddress.ExecuteNonQuery();
+
+                        long newAddressId = cmdInsertAddress.LastInsertedId;
+
+                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (city) VALUES (@city);", conn);
+
+                        cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
+
+                        cmdInsertCity.ExecuteNonQuery();
+
+                        long newCityId = cmdInsertCity.LastInsertedId;
+
+                        MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (country) VALUES (@country);", conn);
+
+                        cmdInsertCountry.Parameters.AddWithValue("@country", textBoxCountry.Text);
+
+                        cmdInsertCountry.ExecuteNonQuery();
+
+                        long newCountryId = cmdInsertCountry.LastInsertedId;
+
+                        MessageBox.Show("Customer created.");
+                        MainFormInstance.RefreshCustomerData();
+
+
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                    finally
+                    {
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
+                        }
+                    }
                 }
+
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message.ToString());
                 MessageBox.Show($"Error: {ex.Message}");
             }
             finally
@@ -118,11 +169,6 @@ namespace C969_DerekMarquart
                     conn.Close();
                 }
             }
-            
-        }
-        private void buttonExit_Click(object sender, EventArgs e)
-        {     
-            this.Close();
         }
     }
 }

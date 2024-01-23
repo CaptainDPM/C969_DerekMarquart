@@ -21,6 +21,11 @@ namespace C969_DerekMarquart
         {
             InitializeComponent();
         }
+        public void RefreshCustomerData()
+        {
+            DisplayCustomers();
+        }
+
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
@@ -67,6 +72,7 @@ namespace C969_DerekMarquart
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer();
+            createUpdateCustomer.MainFormInstance = this;
             createUpdateCustomer.Show();
         }
 
