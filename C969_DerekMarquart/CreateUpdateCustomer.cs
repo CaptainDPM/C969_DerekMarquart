@@ -22,10 +22,15 @@ namespace C969_DerekMarquart
         public CreateUpdateCustomer(MainScreen mainScreen)
         {
             InitializeComponent();
+
+            int newCustID = GetLastID() + 1;
             mainScreenInstance = mainScreen;
-            textBoxAddID.Visible = false;
-            textBoxCityID.Visible = false;
-            textBoxCountryID.Visible = false;
+            textBoxAddID.Hide();
+            textBoxCityID.Hide();
+            textBoxCountryID.Hide();
+            textBoxID.ReadOnly = true;
+            textBoxID.Enabled = false;
+            textBoxID.Text = newCustID.ToString();
         }
 
         public CreateUpdateCustomer(string customerID, string customerName, string addressID ,string address, string phone, string cityID, string city, string countryID, string country)
@@ -42,7 +47,28 @@ namespace C969_DerekMarquart
             textBoxAddID.Text = addressID;
             textBoxCityID.Text = cityID;
             textBoxCountryID.Text = countryID;
+            textBoxAddID.Hide();
+            textBoxCityID.Hide();
+            textBoxCountryID.Hide();
+            textBoxID.ReadOnly = true;
+            textBoxID.Enabled = false;
 
+        }
+
+        public int GetLastID()
+        {
+            conn.Close();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT MAX(customerId) FROM customer", conn);
+            int lastID = 0;
+
+            object result = cmd.ExecuteScalar();
+            if (result != DBNull.Value && result != null)
+            {
+                lastID = Convert.ToInt32(result);
+            }
+
+            return lastID;
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

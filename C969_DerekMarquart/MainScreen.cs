@@ -63,6 +63,7 @@ namespace C969_DerekMarquart
 
         }
 
+
         private void buttonExit_Click(object sender, EventArgs e)
         {
             LoginFormInstance.Show();
@@ -73,7 +74,6 @@ namespace C969_DerekMarquart
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer(this);
-            //createUpdateCustomer.MainFormInstance = this;
             createUpdateCustomer.Show();
         }
 
@@ -113,6 +113,69 @@ namespace C969_DerekMarquart
         {
             CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt();
             createUpdateAppt.Show();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridMembers.SelectedRows.Count > 0)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this customer?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        DataGridViewRow selectedRow = dataGridMembers.SelectedRows[0];
+                        string customerID = selectedRow.Cells["CustomerID"].Value.ToString();
+                        string addressID = selectedRow.Cells["AddressID"].Value.ToString();
+                        string cityID = selectedRow.Cells["CityID"].Value.ToString();
+                        string countryID = selectedRow.Cells["CountryID"].Value.ToString();
+
+
+
+                        MySqlCommand cmdDeleteCustomer = new MySqlCommand("DELETE FROM customer WHERE customerId = @customerID", conn);
+                        cmdDeleteCustomer.Parameters.AddWithValue("@customerID", customerID);
+                        cmdDeleteCustomer.ExecuteNonQuery();
+
+                        MySqlCommand cmdDeleteAddress = new MySqlCommand("DELETE FROM address WHERE addressId = @addressID", conn);
+                        cmdDeleteAddress.Parameters.AddWithValue("@addressID", addressID);
+                        cmdDeleteAddress.ExecuteNonQuery();
+
+                        // Delete associated city
+                        MySqlCommand cmdDeleteCity = new MySqlCommand("DELETE FROM city WHERE cityId = @cityID", conn);
+                        cmdDeleteCity.Parameters.AddWithValue("@cityID", cityID);
+                        cmdDeleteCity.ExecuteNonQuery();
+
+                        // Delete associated country
+                        MySqlCommand cmdDeleteCountry = new MySqlCommand("DELETE FROM country WHERE countryId = @countryID", conn);
+                        cmdDeleteCountry.Parameters.AddWithValue("@countryID", countryID);
+                        cmdDeleteCountry.ExecuteNonQuery();
+
+
+                        MessageBox.Show("Customer deleted.");
+
+                        RefreshCustomerData();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                    finally
+                    {
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete.");
+            }
+
         }
     }
 }
