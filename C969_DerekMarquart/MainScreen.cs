@@ -36,11 +36,12 @@ namespace C969_DerekMarquart
 
         }
 
-        private void DisplayCustomers()
+        public void DisplayCustomers()
         {
+            MessageBox.Show("Displaying Customers");
             conn.Close();
             conn.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT customer.customerName AS Name, address.address AS Address, address.phone AS Phone, city.city AS City, country.country AS Country " +
+            MySqlCommand cmd = new MySqlCommand("SELECT customer.customerId AS CustomerID, customer.customerName AS Name, address.addressId AS AddressID, address.address AS Address, address.phone AS Phone, city.cityID AS CityID, city.city AS City, country.countryId AS CountryID, country.country AS Country " +
                                         "FROM customer customer " +
                                         "JOIN address address ON customer.addressId = address.addressId " +
                                         "JOIN city city ON address.cityId = city.cityId " +
@@ -71,8 +72,8 @@ namespace C969_DerekMarquart
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer();
-            createUpdateCustomer.MainFormInstance = this;
+            CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer(this);
+            //createUpdateCustomer.MainFormInstance = this;
             createUpdateCustomer.Show();
         }
 
@@ -81,13 +82,17 @@ namespace C969_DerekMarquart
             if (dataGridMembers.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridMembers.SelectedRows[0];
+                string customerID = selectedRow.Cells["CustomerID"].Value.ToString();
                 string customerName = selectedRow.Cells["Name"].Value.ToString();
+                string addressID = selectedRow.Cells["AddressID"].Value.ToString();
                 string address = selectedRow.Cells["Address"].Value.ToString();
                 string phone = selectedRow.Cells["Phone"].Value.ToString();
+                string cityID = selectedRow.Cells["CityID"].Value.ToString();
                 string city = selectedRow.Cells["City"].Value.ToString();
+                string countryID = selectedRow.Cells["CountryID"].Value.ToString();
                 string country = selectedRow.Cells["Country"].Value.ToString();
 
-                CreateUpdateCustomer updateCustomerForm = new CreateUpdateCustomer(customerName, address, phone, city, country);
+                CreateUpdateCustomer updateCustomerForm = new CreateUpdateCustomer(customerID, customerName, addressID, address, phone, cityID, city, countryID, country);
                 updateCustomerForm.ShowDialog();
 
                 DisplayCustomers();
