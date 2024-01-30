@@ -23,7 +23,10 @@ namespace C969_DerekMarquart
         {
             InitializeComponent();
 
-            int newCustID = GetLastID() + 1;
+            int newCustID = GetLastCustID() + 1;
+            int newAddID = GetLastAddID() + 1;
+            int newCityID = GetLastCityID() + 1;
+            int newCountID = GetLastCountID() + 1;
             mainScreenInstance = mainScreen;
             textBoxAddID.Hide();
             textBoxCityID.Hide();
@@ -31,6 +34,9 @@ namespace C969_DerekMarquart
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
             textBoxID.Text = newCustID.ToString();
+            textBoxAddID.Text = newAddID.ToString();
+            textBoxCityID.Text = newCityID.ToString();
+            textBoxCountryID.Text = newCountID.ToString();
         }
 
         public CreateUpdateCustomer(string customerID, string customerName, string addressID ,string address, string phone, string cityID, string city, string countryID, string country)
@@ -55,11 +61,56 @@ namespace C969_DerekMarquart
 
         }
 
-        public int GetLastID()
+        public int GetLastCustID()
         {
             conn.Close();
             conn.Open();
             MySqlCommand cmd = new MySqlCommand("SELECT MAX(customerId) FROM customer", conn);
+            int lastID = 0;
+
+            object result = cmd.ExecuteScalar();
+            if (result != DBNull.Value && result != null)
+            {
+                lastID = Convert.ToInt32(result);
+            }
+
+            return lastID;
+        }
+        public int GetLastAddID()
+        {
+            conn.Close();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT MAX(addressId) FROM address", conn);
+            int lastID = 0;
+
+            object result = cmd.ExecuteScalar();
+            if (result != DBNull.Value && result != null)
+            {
+                lastID = Convert.ToInt32(result);
+            }
+
+            return lastID;
+        }
+        public int GetLastCityID()
+        {
+            conn.Close();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT MAX(cityId) FROM city", conn);
+            int lastID = 0;
+
+            object result = cmd.ExecuteScalar();
+            if (result != DBNull.Value && result != null)
+            {
+                lastID = Convert.ToInt32(result);
+            }
+
+            return lastID;
+        }
+        public int GetLastCountID()
+        {
+            conn.Close();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("SELECT MAX(countryId) FROM country", conn);
             int lastID = 0;
 
             object result = cmd.ExecuteScalar();
@@ -80,6 +131,7 @@ namespace C969_DerekMarquart
         {
             try
             {
+                conn.Close();
                 conn.Open();
                 
                 if (isUpdateMode)
@@ -152,16 +204,12 @@ namespace C969_DerekMarquart
                 {
                     try
                     {
-                        MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerName) VALUES (@customerName);", conn);
+                        conn.Close();
+                        conn.Open();
 
-                        cmdInsert.Parameters.AddWithValue("@customerName", textBoxName.Text);
+                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (addressId, address, phone) VALUES (@addressId, @address, @phone);", conn);
 
-                        cmdInsert.ExecuteNonQuery();
-
-                        long newCustomerId = cmdInsert.LastInsertedId;
-
-                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (address, phone) VALUES (@address, @phone);", conn);
-
+                        cmdInsertAddress.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
                         cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
                         cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
 
@@ -169,25 +217,39 @@ namespace C969_DerekMarquart
 
                         long newAddressId = cmdInsertAddress.LastInsertedId;
 
-                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (city) VALUES (@city);", conn);
+                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (cityId, city) VALUES (@cityId, @city);", conn);
 
+                        cmdInsertCity.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
                         cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
 
                         cmdInsertCity.ExecuteNonQuery();
 
                         long newCityId = cmdInsertCity.LastInsertedId;
 
-                        MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (country) VALUES (@country);", conn);
+                        MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (countryId, country) VALUES (@countryId, @country);", conn);
 
+                        cmdInsertCountry.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
                         cmdInsertCountry.Parameters.AddWithValue("@country", textBoxCountry.Text);
 
                         cmdInsertCountry.ExecuteNonQuery();
 
                         long newCountryId = cmdInsertCountry.LastInsertedId;
 
+                        MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerId, customerName, addressId) VALUES (@customerId, @customerName, @addressId);", conn);
+
+                        cmdInsert.Parameters.AddWithValue("@customerId", textBoxID.Text);
+                        cmdInsert.Parameters.AddWithValue("@customerName", textBoxName.Text);
+                        cmdInsert.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
+
+                        cmdInsert.ExecuteNonQuery();
+
+                        long newCustomerId = cmdInsert.LastInsertedId;
+
+
+
                         MessageBox.Show("Customer created.");
 
-                        mainScreenInstance?.RefreshCustomerData();
+                        mainScreenInstance.RefreshCustomerData();
 
                         this.Close();
                     }

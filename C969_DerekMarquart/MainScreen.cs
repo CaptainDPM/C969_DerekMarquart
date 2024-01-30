@@ -23,6 +23,7 @@ namespace C969_DerekMarquart
         }
         public void RefreshCustomerData()
         {
+            dataGridMembers.DataSource = null;
             DisplayCustomers();
         }
 
@@ -50,6 +51,15 @@ namespace C969_DerekMarquart
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             dataGridMembers.DataSource = dataTable;
+            dataGridMembers.Refresh();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    Console.WriteLine($"{col.ColumnName}: {row[col]}");
+                }
+            }
         }
 
         private void DisplayAppointments()
