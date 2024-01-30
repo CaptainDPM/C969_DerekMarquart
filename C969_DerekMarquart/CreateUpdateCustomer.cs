@@ -28,9 +28,9 @@ namespace C969_DerekMarquart
             int newCityID = GetLastCityID() + 1;
             int newCountID = GetLastCountID() + 1;
             mainScreenInstance = mainScreen;
-            textBoxAddID.Hide();
-            textBoxCityID.Hide();
-            textBoxCountryID.Hide();
+            //textBoxAddID.Hide();
+            //textBoxCityID.Hide();
+            //textBoxCountryID.Hide();
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
             textBoxID.Text = newCustID.ToString();
@@ -53,9 +53,9 @@ namespace C969_DerekMarquart
             textBoxAddID.Text = addressID;
             textBoxCityID.Text = cityID;
             textBoxCountryID.Text = countryID;
-            textBoxAddID.Hide();
-            textBoxCityID.Hide();
-            textBoxCountryID.Hide();
+            //textBoxAddID.Hide();
+            //textBoxCityID.Hide();
+            //textBoxCountryID.Hide();
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
 
@@ -206,26 +206,6 @@ namespace C969_DerekMarquart
                     {
                         conn.Close();
                         conn.Open();
-
-                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (addressId, address, phone) VALUES (@addressId, @address, @phone);", conn);
-
-                        cmdInsertAddress.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
-                        cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
-                        cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
-
-                        cmdInsertAddress.ExecuteNonQuery();
-
-                        long newAddressId = cmdInsertAddress.LastInsertedId;
-
-                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (cityId, city) VALUES (@cityId, @city);", conn);
-
-                        cmdInsertCity.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
-                        cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
-
-                        cmdInsertCity.ExecuteNonQuery();
-
-                        long newCityId = cmdInsertCity.LastInsertedId;
-
                         MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (countryId, country) VALUES (@countryId, @country);", conn);
 
                         cmdInsertCountry.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
@@ -234,6 +214,27 @@ namespace C969_DerekMarquart
                         cmdInsertCountry.ExecuteNonQuery();
 
                         long newCountryId = cmdInsertCountry.LastInsertedId;
+
+                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (cityId, city, countryId) VALUES (@cityId, @city, @countryId);", conn);
+
+                        cmdInsertCity.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
+                        cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
+                        cmdInsertCity.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
+
+                        cmdInsertCity.ExecuteNonQuery();
+
+                        long newCityId = cmdInsertCity.LastInsertedId;
+
+                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (addressId, address, phone, cityId) VALUES (@addressId, @address, @phone, @cityId);", conn);
+
+                        cmdInsertAddress.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
+                        cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
+                        cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
+                        cmdInsertAddress.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
+
+                        cmdInsertAddress.ExecuteNonQuery();
+
+                        long newAddressId = cmdInsertAddress.LastInsertedId;
 
                         MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerId, customerName, addressId) VALUES (@customerId, @customerName, @addressId);", conn);
 
