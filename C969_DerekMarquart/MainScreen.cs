@@ -23,8 +23,11 @@ namespace C969_DerekMarquart
         }
         public void RefreshCustomerData()
         {
-            dataGridMembers.DataSource = null;
             DisplayCustomers();
+        }
+        public void RefreshAppointmentData()
+        {
+            DisplayAppointments();
         }
 
 
@@ -39,7 +42,6 @@ namespace C969_DerekMarquart
 
         public void DisplayCustomers()
         {
-            MessageBox.Show("Displaying Customers");
             conn.Close();
             conn.Open();
             MySqlCommand cmd = new MySqlCommand("SELECT customer.customerId AS CustomerID, customer.customerName AS Name, address.addressId AS AddressID, address.address AS Address, address.phone AS Phone, city.cityID AS CityID, city.city AS City, country.countryId AS CountryID, country.country AS Country " +
@@ -52,23 +54,18 @@ namespace C969_DerekMarquart
             adapter.Fill(dataTable);
             dataGridMembers.DataSource = dataTable;
             dataGridMembers.Refresh();
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                foreach (DataColumn col in dataTable.Columns)
-                {
-                    Console.WriteLine($"{col.ColumnName}: {row[col]}");
-                }
-            }
         }
 
         private void DisplayAppointments()
         {
+            conn.Close();
+            conn.Open();
             MySqlCommand cmd = new MySqlCommand("SELECT appointmentId as AppointmentID, customerId as CustomerID, userId as UserID, start as StartDate, end as EndDate FROM appointment;", conn);
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             dataGridAppts.DataSource = dataTable;
+            dataGridAppts.Refresh();
 
 
         }
@@ -115,13 +112,21 @@ namespace C969_DerekMarquart
 
         private void buttonCreateAppt_Click(object sender, EventArgs e)
         {
-            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt();
+            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt(this);
             createUpdateAppt.Show();
         }
 
         private void buttonModAppt_Click(object sender, EventArgs e)
         {
-            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt();
+            DataGridViewRow selectedRow = dataGridAppts.SelectedRows[0];
+            string appointmentID = selectedRow.Cells["AppointmentID"].Value.ToString();
+            string customerID = selectedRow.Cells["CustomerID"].Value.ToString();
+            string userID = selectedRow.Cells["UserID"].Value.ToString();
+            string startDate = selectedRow.Cells["StartDate"].Value.ToString();
+            string endDate = selectedRow.Cells["EndDate"].Value.ToString();
+
+
+            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt(appointmentID, customerID, userID, startDate, endDate);
             createUpdateAppt.Show();
         }
 
@@ -151,12 +156,10 @@ namespace C969_DerekMarquart
                         cmdDeleteAddress.Parameters.AddWithValue("@addressID", addressID);
                         cmdDeleteAddress.ExecuteNonQuery();
 
-                        // Delete associated city
                         MySqlCommand cmdDeleteCity = new MySqlCommand("DELETE FROM city WHERE cityId = @cityID", conn);
                         cmdDeleteCity.Parameters.AddWithValue("@cityID", cityID);
                         cmdDeleteCity.ExecuteNonQuery();
 
-                        // Delete associated country
                         MySqlCommand cmdDeleteCountry = new MySqlCommand("DELETE FROM country WHERE countryId = @countryID", conn);
                         cmdDeleteCountry.Parameters.AddWithValue("@countryID", countryID);
                         cmdDeleteCountry.ExecuteNonQuery();
@@ -186,6 +189,71 @@ namespace C969_DerekMarquart
                 MessageBox.Show("Please select a row to delete.");
             }
 
+        }
+
+        private void buttonDelAppt_Click(object sender, EventArgs e)
+        {
+            if (dataGridAppts.SelectedRows.Count > 0)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this appointment?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        DataGridViewRow selectedRow = dataGridAppts.SelectedRows[0];
+                        string appointmentID = selectedRow.Cells["AppointmentID"].Value.ToString();
+                        string customerID = selectedRow.Cells["CustomerID"].Value.ToString();
+                        string userID = selectedRow.Cells["UserID"].Value.ToString();
+                        string startDate = selectedRow.Cells["StartDate"].Value.ToString();
+                        string endDate = selectedRow.Cells["EndDate"].Value.ToString();
+
+
+
+                        MySqlCommand cmdDeleteAppointment = new MySqlCommand("DELETE FROM appointment WHERE appointmentId = @appointmentID", conn);
+                        cmdDeleteAppointment.Parameters.AddWithValue("@appointmentID", appointmentID);
+                        cmdDeleteAppointment.ExecuteNonQuery();
+
+                        MySqlCommand cmdDeleteCustomer = new MySqlCommand("DELETE FROM customer WHERE customerId = @customerID", conn);
+                        cmdDeleteCustomer.Parameters.AddWithValue("@customerID", customerID);
+                        cmdDeleteCustomer.ExecuteNonQuery();
+
+                        MySqlCommand cmdDeleteUser = new MySqlCommand("DELETE FROM user WHERE userId = @userID", conn);
+                        cmdDeleteUser.Parameters.AddWithValue("@userID", userID);
+                        cmdDeleteUser.ExecuteNonQuery();
+
+                        MySqlCommand cmdDeleteStartDate = new MySqlCommand("DELETE FROM appointment WHERE start = @startDate", conn);
+                        cmdDeleteStartDate.Parameters.AddWithValue("@startDate", startDate);
+                        cmdDeleteStartDate.ExecuteNonQuery();
+
+                        MySqlCommand cmdDeleteEndDate = new MySqlCommand("DELETE FROM appointment WHERE end = @endDate", conn);
+                        cmdDeleteEndDate.Parameters.AddWithValue("@endDate", endDate);
+                        cmdDeleteEndDate.ExecuteNonQuery();
+
+
+                        MessageBox.Show("Appointment deleted.");
+
+                        RefreshAppointmentData();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                    finally
+                    {
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete.");
+            }
         }
     }
 }

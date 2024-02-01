@@ -116,6 +116,7 @@ namespace C969_DerekMarquart
             this.dataGridAppts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAppts.Location = new System.Drawing.Point(12, 372);
             this.dataGridAppts.Name = "dataGridAppts";
+            this.dataGridAppts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridAppts.Size = new System.Drawing.Size(1156, 255);
             this.dataGridAppts.TabIndex = 6;
             // 
@@ -150,6 +151,7 @@ namespace C969_DerekMarquart
             this.buttonDelAppt.TabIndex = 9;
             this.buttonDelAppt.Text = "Delete";
             this.buttonDelAppt.UseVisualStyleBackColor = true;
+            this.buttonDelAppt.Click += new System.EventHandler(this.buttonDelAppt_Click);
             // 
             // buttonReports
             // 

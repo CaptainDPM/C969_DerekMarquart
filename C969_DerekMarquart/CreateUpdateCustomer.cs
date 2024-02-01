@@ -28,9 +28,9 @@ namespace C969_DerekMarquart
             int newCityID = GetLastCityID() + 1;
             int newCountID = GetLastCountID() + 1;
             mainScreenInstance = mainScreen;
-            //textBoxAddID.Hide();
-            //textBoxCityID.Hide();
-            //textBoxCountryID.Hide();
+            textBoxAddID.Hide();
+            textBoxCityID.Hide();
+            textBoxCountryID.Hide();
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
             textBoxID.Text = newCustID.ToString();
@@ -53,9 +53,9 @@ namespace C969_DerekMarquart
             textBoxAddID.Text = addressID;
             textBoxCityID.Text = cityID;
             textBoxCountryID.Text = countryID;
-            //textBoxAddID.Hide();
-            //textBoxCityID.Hide();
-            //textBoxCountryID.Hide();
+            textBoxAddID.Hide();
+            textBoxCityID.Hide();
+            textBoxCountryID.Hide();
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
 
