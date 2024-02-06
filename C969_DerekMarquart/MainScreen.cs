@@ -214,13 +214,13 @@ namespace C969_DerekMarquart
                         cmdDeleteAppointment.Parameters.AddWithValue("@appointmentID", appointmentID);
                         cmdDeleteAppointment.ExecuteNonQuery();
 
-                        MySqlCommand cmdDeleteCustomer = new MySqlCommand("DELETE FROM customer WHERE customerId = @customerID", conn);
+                        /*MySqlCommand cmdDeleteCustomer = new MySqlCommand("DELETE FROM customer WHERE customerId = @customerID", conn);
                         cmdDeleteCustomer.Parameters.AddWithValue("@customerID", customerID);
                         cmdDeleteCustomer.ExecuteNonQuery();
 
                         MySqlCommand cmdDeleteUser = new MySqlCommand("DELETE FROM user WHERE userId = @userID", conn);
                         cmdDeleteUser.Parameters.AddWithValue("@userID", userID);
-                        cmdDeleteUser.ExecuteNonQuery();
+                        cmdDeleteUser.ExecuteNonQuery();*/
 
                         MySqlCommand cmdDeleteStartDate = new MySqlCommand("DELETE FROM appointment WHERE start = @startDate", conn);
                         cmdDeleteStartDate.Parameters.AddWithValue("@startDate", startDate);

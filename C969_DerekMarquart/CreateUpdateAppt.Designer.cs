@@ -41,9 +41,8 @@ namespace C969_DerekMarquart
             this.labelUserID = new System.Windows.Forms.Label();
             this.labelStart = new System.Windows.Forms.Label();
             this.labelEnd = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // buttonExit
@@ -91,14 +90,14 @@ namespace C969_DerekMarquart
             // 
             // textBoxStart
             // 
-            this.textBoxStart.Location = new System.Drawing.Point(187, 234);
+            this.textBoxStart.Location = new System.Drawing.Point(187, 261);
             this.textBoxStart.Name = "textBoxStart";
             this.textBoxStart.Size = new System.Drawing.Size(221, 20);
             this.textBoxStart.TabIndex = 7;
             // 
             // textBoxEnd
             // 
-            this.textBoxEnd.Location = new System.Drawing.Point(187, 296);
+            this.textBoxEnd.Location = new System.Drawing.Point(187, 358);
             this.textBoxEnd.Name = "textBoxEnd";
             this.textBoxEnd.Size = new System.Drawing.Size(221, 20);
             this.textBoxEnd.TabIndex = 8;
@@ -152,41 +151,31 @@ namespace C969_DerekMarquart
             this.labelEnd.AutoSize = true;
             this.labelEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEnd.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelEnd.Location = new System.Drawing.Point(70, 299);
+            this.labelEnd.Location = new System.Drawing.Point(70, 336);
             this.labelEnd.Name = "labelEnd";
             this.labelEnd.Size = new System.Drawing.Size(72, 16);
             this.labelEnd.TabIndex = 13;
             this.labelEnd.Text = "End Date";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label1.Location = new System.Drawing.Point(184, 257);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 16);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "YYYY/MM/DD/HH/MM/SS";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Location = new System.Drawing.Point(184, 319);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(185, 16);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "YYYY/MM/DD/HH/MM/SS";
-            // 
             // dateTimePickerStart
             // 
-            this.dateTimePickerStart.CustomFormat = "";
-            this.dateTimePickerStart.Location = new System.Drawing.Point(187, 364);
+            this.dateTimePickerStart.CustomFormat = "\"yyyy-MM-dd HH:mm\"";
+            this.dateTimePickerStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerStart.Location = new System.Drawing.Point(187, 233);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerStart.TabIndex = 16;
+            this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.dateTimePickerStart_ValueChanged);
+            // 
+            // dateTimePickerEnd
+            // 
+            this.dateTimePickerEnd.CustomFormat = "\"yyyy-MM-dd HH:mm\"";
+            this.dateTimePickerEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerEnd.Location = new System.Drawing.Point(187, 332);
+            this.dateTimePickerEnd.Name = "dateTimePickerEnd";
+            this.dateTimePickerEnd.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEnd.TabIndex = 17;
+            this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.dateTimePickerEnd_ValueChanged);
             // 
             // CreateUpdateAppt
             // 
@@ -194,9 +183,8 @@ namespace C969_DerekMarquart
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(481, 542);
+            this.Controls.Add(this.dateTimePickerEnd);
             this.Controls.Add(this.dateTimePickerStart);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelEnd);
             this.Controls.Add(this.labelStart);
             this.Controls.Add(this.labelUserID);
@@ -230,8 +218,7 @@ namespace C969_DerekMarquart
         private System.Windows.Forms.Label labelUserID;
         private System.Windows.Forms.Label labelStart;
         private System.Windows.Forms.Label labelEnd;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEnd;
     }
 }

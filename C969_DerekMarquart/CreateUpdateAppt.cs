@@ -21,9 +21,17 @@ namespace C969_DerekMarquart
         {
             InitializeComponent();
             mainScreenInstance = mainScreen;
+            conn.Close();
+            conn.Open();
 
             int newApptID = GetLastApptID() + 1;
             textBoxApptID.Text = newApptID.ToString();
+            textBoxApptID.ReadOnly = true;
+            textBoxApptID.Enabled = false;
+            textBoxStart.ReadOnly = true;
+            textBoxStart.Enabled = false;
+            textBoxEnd.ReadOnly = true;
+            textBoxEnd.Enabled = false;
 
         }
 
@@ -31,6 +39,8 @@ namespace C969_DerekMarquart
         {
             InitializeComponent();
             isUpdateMode = true;
+            conn.Close();
+            conn.Open();
 
             textBoxApptID.Text = appointmentID;
             textBoxCustID.Text = customerID;
@@ -39,6 +49,10 @@ namespace C969_DerekMarquart
             textBoxEnd.Text = endDate;
             textBoxApptID.ReadOnly = true;
             textBoxApptID.Enabled = false;
+            textBoxStart.ReadOnly = true;
+            textBoxStart.Hide();
+            textBoxEnd.ReadOnly = true;
+            textBoxEnd.Hide();
         }
 
         public int GetLastApptID()
@@ -141,105 +155,115 @@ namespace C969_DerekMarquart
 
                 if (isUpdateMode)
                 {
-                    try
+                    using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
                     {
-                        if (!DoesUserExist(textBoxUserID.Text))
+                        updateConn.Open();
+
+                        try
                         {
-                            MessageBox.Show("Invalid User ID.");
-                            return;
+                            if (!DoesUserExist(textBoxUserID.Text))
+                            {
+                                MessageBox.Show("Invalid User ID.");
+                                return;
+                            }
+                            if (!DoesCustomerExist(textBoxCustID.Text))
+                            {
+                                MessageBox.Show("Invalid Customer ID.");
+                                return;
+                            }
+                            if (!IsValidBusinessHours(DateTime.Parse(textBoxStart.Text), DateTime.Parse(textBoxEnd.Text)))
+                            {
+                                MessageBox.Show("Appointments must be scheduled during business hours (9:00 a.m. to 5:00 p.m., Monday–Friday, Eastern Standard Time).");
+                                return;
+                            }
+
+                            MySqlCommand cmd = new MySqlCommand("UPDATE appointment " +
+                                                                "SET " +
+                                                                "customerId = @newcustomerID, " +
+                                                                "start = @newStart, " +
+                                                                "end = @newEnd " +
+                                                                "WHERE " +
+                                                                "appointmentId = @appointmentID", updateConn);
+
+                            cmd.Parameters.AddWithValue("@newcustomerID", textBoxCustID.Text);
+                            cmd.Parameters.AddWithValue("@appointmentID", textBoxApptID.Text);
+                            cmd.Parameters.AddWithValue("@newStart", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
+                            cmd.Parameters.AddWithValue("@newEnd", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Update complete.");
+
+                            mainScreenInstance?.RefreshAppointmentData();
+                            Console.WriteLine($"Executing SQL: {cmd.CommandText}");
+
+
+                            this.Close();
                         }
-                        if (!DoesCustomerExist(textBoxCustID.Text))
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Invalid Customer ID.");
-                            return;
+                            Console.WriteLine(ex.Message.ToString());
+                            MessageBox.Show($"Error: {ex.Message}");
                         }
-                        if (!IsValidBusinessHours(DateTime.Parse(textBoxStart.Text), DateTime.Parse(textBoxEnd.Text)))
-                        {
-                            MessageBox.Show("Appointments must be scheduled during business hours (9:00 a.m. to 5:00 p.m., Monday–Friday, Eastern Standard Time).");
-                            return;
-                        }
-
-                        MySqlCommand cmd = new MySqlCommand("UPDATE appointment " +
-                                                            "SET " +
-                                                            "customerId = @newcustomerID, " +
-                                                            "start = @newStart, " +
-                                                            "end = @newEnd " +
-                                                            "WHERE " +
-                                                            "appointmentId = @appointmentID", conn);
-
-                        cmd.Parameters.AddWithValue("@newcustomerID", textBoxCustID.Text);
-                        cmd.Parameters.AddWithValue("@appointmentID", textBoxApptID.Text);
-                        cmd.Parameters.AddWithValue("@newStart", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm:ss"));
-                        cmd.Parameters.AddWithValue("@newEnd", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm:ss"));
-                        cmd.ExecuteNonQuery();
-
-                        MessageBox.Show("Update complete.");
-
-                        mainScreenInstance?.RefreshAppointmentData();
-                        Console.WriteLine($"Executing SQL: {cmd.CommandText}");
-
-
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message.ToString());
-                        MessageBox.Show($"Error: {ex.Message}");
                     }
 
                 }
                 else
                 {
-                    try
+                    using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
                     {
-                        conn.Close();
-                        conn.Open();
+                        insertConn.Open();
 
-                        if (!DoesUserExist(textBoxUserID.Text))
-                        {
-                            MessageBox.Show("Invalid User ID.");
-                            return;
-                        }
-                        if (!DoesCustomerExist(textBoxCustID.Text))
-                        {
-                            MessageBox.Show("Invalid Customer ID.");
-                            return;
-                        }
-                        if (!IsValidBusinessHours(DateTime.Parse(textBoxStart.Text), DateTime.Parse(textBoxEnd.Text)))
-                        {
-                            MessageBox.Show("Appointments must be scheduled during business hours (9:00 a.m. to 5:00 p.m., Monday–Friday, Eastern Standard Time).");
-                            return;
-                        }
-
-                        MySqlCommand cmdInsertAppointment = new MySqlCommand("INSERT INTO appointment (appointmentId, customerId, userId, start, end) VALUES (@appoinmentID, @customerID, @userID, @startDate, @endDate);", conn);
-
-                        cmdInsertAppointment.Parameters.AddWithValue("@userID", textBoxUserID.Text);
-                        cmdInsertAppointment.Parameters.AddWithValue("@customerID", textBoxCustID.Text);
-                        cmdInsertAppointment.Parameters.AddWithValue("@appoinmentID", textBoxApptID.Text);
-                        cmdInsertAppointment.Parameters.AddWithValue("@startDate", DateTime.Parse(textBoxStart.Text).ToString("yyyy-MM-dd HH:mm:ss"));
-                        cmdInsertAppointment.Parameters.AddWithValue("@endDate", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm:ss"));
-
-
-                        cmdInsertAppointment.ExecuteNonQuery();
-
-                        long newAppointmentId = cmdInsertAppointment.LastInsertedId;
-
-                        MessageBox.Show("Appointment created.");
-
-                        mainScreenInstance.RefreshAppointmentData();
-
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message.ToString());
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-                    finally
-                    {
-                        if (conn.State == ConnectionState.Open)
+                        try
                         {
                             conn.Close();
+                            conn.Open();
+
+                            if (!DoesUserExist(textBoxUserID.Text))
+                            {
+                                MessageBox.Show("Invalid User ID.");
+                                return;
+                            }
+                            if (!DoesCustomerExist(textBoxCustID.Text))
+                            {
+                                MessageBox.Show("Invalid Customer ID.");
+                                return;
+                            }
+                            if (!IsValidBusinessHours(DateTime.Parse(textBoxStart.Text), DateTime.Parse(textBoxEnd.Text)))
+                            {
+                                MessageBox.Show("Appointments must be scheduled during business hours (9:00 a.m. to 5:00 p.m., Monday–Friday, Eastern Standard Time).");
+                                return;
+                            }
+
+                            MySqlCommand cmdInsertAppointment = new MySqlCommand("INSERT INTO appointment (appointmentId, customerId, userId, start, end) VALUES (@appoinmentID, @customerID, @userID, @startDate, @endDate);", insertConn);
+
+                            cmdInsertAppointment.Parameters.AddWithValue("@userID", textBoxUserID.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@customerID", textBoxCustID.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@appoinmentID", textBoxApptID.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@startDate", DateTime.Parse(textBoxStart.Text).ToString("yyyy-MM-dd HH:mm"));
+                            cmdInsertAppointment.Parameters.AddWithValue("@endDate", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
+
+
+                            cmdInsertAppointment.ExecuteNonQuery();
+
+                            long newAppointmentId = cmdInsertAppointment.LastInsertedId;
+
+                            MessageBox.Show("Appointment created.");
+
+                            mainScreenInstance.RefreshAppointmentData();
+
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            MessageBox.Show($"Error: {ex.Message}");
+                        }
+                        finally
+                        {
+                            if (conn.State == ConnectionState.Open)
+                            {
+                                conn.Close();
+                            }
                         }
                     }
                 }
@@ -257,6 +281,27 @@ namespace C969_DerekMarquart
                     conn.Close();
                 }
             }
+        }
+
+        private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime selectedDateTime = dateTimePickerStart.Value;
+            
+            TimeZoneInfo estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime estDateTime = TimeZoneInfo.ConvertTimeToUtc(selectedDateTime, estTimeZone);
+
+            textBoxStart.Text = estDateTime.ToString("yyyy-MM-dd HH:mm");
+        }
+
+        private void dateTimePickerEnd_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime selectedDateTime = dateTimePickerEnd.Value;
+
+            TimeZoneInfo estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime estDateTime = TimeZoneInfo.ConvertTimeToUtc(selectedDateTime, estTimeZone);
+
+            textBoxEnd.Text = estDateTime.ToString("yyyy-MM-dd HH:mm");
+
         }
     }
 }
