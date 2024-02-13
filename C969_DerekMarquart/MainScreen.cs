@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -52,18 +53,42 @@ namespace C969_DerekMarquart
 
             try
             {
-                foreach (DataGridViewRow row in dataGridAppts.Rows)
+                string query = "SELECT COUNT(*) FROM appointment WHERE Day(start) = Day(@today)";
+
+                string constr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
+
+                using (MySqlConnection conn = new MySqlConnection(constr))
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@today", today.Date);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            MessageBox.Show("You have appointments scheduled for today!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No appointments scheduled for today.");
+                        }
+                    }
+                }
+                /*foreach (DataGridViewRow row in dataGridAppts.Rows)
                 {
                     if (row.Cells["StartDate"].Value != null)
                     {
                         DateTime startDate = Convert.ToDateTime(row.Cells["StartDate"].Value);
-                        if (startDate.Date == today)
+                        if (startDate.Date == today.Date)
                         {
                             MessageBox.Show("You have an appointment scheduled for today!");
-                            return; // Assuming you only want to show one message if there's at least one appointment for today
+                            return;
                         }
                     }
-                }
+                }*/
 
             }
             catch (Exception ex)
@@ -102,8 +127,6 @@ namespace C969_DerekMarquart
             adapter.Fill(dataTable);
             dataGridAppts.DataSource = dataTable;
             dataGridAppts.Refresh();
-
-
 
         }
 
