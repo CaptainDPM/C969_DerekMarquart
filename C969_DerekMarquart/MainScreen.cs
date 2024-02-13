@@ -15,6 +15,8 @@ namespace C969_DerekMarquart
     {
         public LoginForm loginForm = new LoginForm();
         MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
+        public DateTime SelectedDate { get; set; }
+
         public LoginForm LoginFormInstance { get; set; }
 
         public MainScreen()
@@ -27,16 +29,48 @@ namespace C969_DerekMarquart
         }
         public void RefreshAppointmentData()
         {
-            DisplayAppointments();
+            DisplayAppointments(SelectedDate);
         }
 
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
             DisplayCustomers();
-            DisplayAppointments();
+            DisplayAppointments(SelectedDate);
+            if (dataGridAppts != null && dataGridAppts.Rows.Count > 0)
+            {
+                CheckForAppointmentsToday();
+            }
             dataGridMembers.ReadOnly = true;
             dataGridAppts.ReadOnly = true;
+
+        }
+
+        private void CheckForAppointmentsToday()
+        {
+            DateTime today = DateTime.Today;
+
+            try
+            {
+                foreach (DataGridViewRow row in dataGridAppts.Rows)
+                {
+                    if (row.Cells["StartDate"].Value != null)
+                    {
+                        DateTime startDate = Convert.ToDateTime(row.Cells["StartDate"].Value);
+                        if (startDate.Date == today)
+                        {
+                            MessageBox.Show("You have an appointment scheduled for today!");
+                            return; // Assuming you only want to show one message if there's at least one appointment for today
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                MessageBox.Show($"Error: {ex.Message}");
+            }
 
         }
 
@@ -56,16 +90,19 @@ namespace C969_DerekMarquart
             dataGridMembers.Refresh();
         }
 
-        private void DisplayAppointments()
+        public void DisplayAppointments(DateTime selectedDate)
         {
             conn.Close();
             conn.Open();
-            MySqlCommand cmd = new MySqlCommand("SELECT appointmentId as AppointmentID, customerId as CustomerID, userId as UserID, start as StartDate, end as EndDate FROM appointment;", conn);
+            string query = "SELECT appointmentId as AppointmentID, customerId as CustomerID, userId as UserID, start as StartDate, end as EndDate FROM appointment WHERE DATE(start) = @selectedDate;";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@selectedDate", selectedDate.ToString("yyyy-MM-dd"));
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             dataGridAppts.DataSource = dataTable;
             dataGridAppts.Refresh();
+
 
 
         }
@@ -255,5 +292,12 @@ namespace C969_DerekMarquart
                 MessageBox.Show("Please select a row to delete.");
             }
         }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            SelectedDate = monthCalendar1.SelectionStart.Date;
+            DisplayAppointments(SelectedDate);
+        }
+
     }
 }

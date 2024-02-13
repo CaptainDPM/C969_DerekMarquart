@@ -193,7 +193,9 @@ namespace C969_DerekMarquart
 
                             MessageBox.Show("Update complete.");
 
-                            mainScreenInstance?.RefreshAppointmentData();
+                            mainScreenInstance.SelectedDate = mainScreenInstance.SelectedDate;
+
+                            mainScreenInstance.DisplayAppointments(mainScreenInstance.SelectedDate);
                             Console.WriteLine($"Executing SQL: {cmd.CommandText}");
 
 
@@ -249,7 +251,9 @@ namespace C969_DerekMarquart
 
                             MessageBox.Show("Appointment created.");
 
-                            mainScreenInstance.RefreshAppointmentData();
+                            mainScreenInstance.SelectedDate = mainScreenInstance.SelectedDate;
+
+                            mainScreenInstance.DisplayAppointments(mainScreenInstance.SelectedDate);
 
                             this.Close();
                         }
