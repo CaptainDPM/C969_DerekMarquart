@@ -111,10 +111,12 @@ namespace C969_DerekMarquart
                 if (CultureInfo.CurrentCulture.Name == "es-CL")
                 {
                     MessageBox.Show("Por favor ingrese un nombre de usuario y contraseña.", "Error de nombre de usuario/contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Log("Failed to login.");
                 }
                 else
                 {
                     MessageBox.Show("Please enter both a username and password.", "Username/Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Log("Failed to login.");
                 }
             }
             else
@@ -143,10 +145,12 @@ namespace C969_DerekMarquart
                             if (CultureInfo.CurrentCulture.Name == "es-CL")
                             {
                                 MessageBox.Show("Inicio de sesión exitosa!");
+                                Logger.Log("Logged in as: " + userName);
                             }
                             else
                             {
                                 MessageBox.Show("Login successful!");
+                                Logger.Log("Logged in as: " + userName);
                             }
                             MainScreen mainScreen = new MainScreen();
                             mainScreen.labelUsername.Text = "Logged in as: " + userName;
@@ -162,10 +166,12 @@ namespace C969_DerekMarquart
                             if (CultureInfo.CurrentCulture.Name == "es-CL")
                             {
                                 MessageBox.Show("Usuario o contraseña invalido. Inténtalo de nuevo.");
+                                Logger.Log("Failed to login as: " + textBox1.Text);
                             }
                             else
                             {
                                 MessageBox.Show("Invalid username or password. Please try again.");
+                                Logger.Log("Failed to login: " + textBox1.Text);
                             }
                         }
                     }
@@ -173,6 +179,7 @@ namespace C969_DerekMarquart
                 catch (MySqlException ex)
                 {
                     MessageBox.Show(ex.Message);
+                    Logger.Log("Error: " + ex.Message);
                 }
             } 
         }

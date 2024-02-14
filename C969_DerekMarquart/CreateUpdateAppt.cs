@@ -33,6 +33,7 @@ namespace C969_DerekMarquart
             textBoxEnd.ReadOnly = true;
             textBoxEnd.Enabled = false;
 
+            Logger.Log("Appointment created: " + textBoxApptID.Text);
         }
 
         public CreateUpdateAppt(string appointmentID, string customerID, string userID, string startDate, string endDate)
@@ -53,6 +54,8 @@ namespace C969_DerekMarquart
             textBoxStart.Hide();
             textBoxEnd.ReadOnly = true;
             textBoxEnd.Hide();
+
+            Logger.Log("Appointment updated: " + appointmentID);
         }
 
         public int GetLastApptID()
@@ -192,6 +195,7 @@ namespace C969_DerekMarquart
                             cmd.ExecuteNonQuery();
 
                             MessageBox.Show("Update complete.");
+                            Logger.Log("Appointment updated: " + textBoxApptID.Text);
 
                             mainScreenInstance.SelectedDate = mainScreenInstance.SelectedDate;
 
@@ -250,6 +254,7 @@ namespace C969_DerekMarquart
                             long newAppointmentId = cmdInsertAppointment.LastInsertedId;
 
                             MessageBox.Show("Appointment created.");
+                            Logger.Log("Appointment created: " + textBoxApptID.Text);
 
                             mainScreenInstance.SelectedDate = mainScreenInstance.SelectedDate;
 
@@ -277,6 +282,7 @@ namespace C969_DerekMarquart
             {
                 Console.WriteLine(ex.Message.ToString());
                 MessageBox.Show($"Error: {ex.Message}");
+                Logger.Log("Error: " + ex.Message);
             }
             finally
             {

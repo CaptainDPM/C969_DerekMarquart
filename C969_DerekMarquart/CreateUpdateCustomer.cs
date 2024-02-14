@@ -37,6 +37,8 @@ namespace C969_DerekMarquart
             textBoxAddID.Text = newAddID.ToString();
             textBoxCityID.Text = newCityID.ToString();
             textBoxCountryID.Text = newCountID.ToString();
+
+            Logger.Log("Customer created: " + textBoxName.Text);
         }
 
         public CreateUpdateCustomer(string customerID, string customerName, string addressID ,string address, string phone, string cityID, string city, string countryID, string country)
@@ -59,6 +61,7 @@ namespace C969_DerekMarquart
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
 
+            Logger.Log("Customer updated: " + customerName);
         }
 
         public int GetLastCustID()
@@ -189,7 +192,7 @@ namespace C969_DerekMarquart
 
                         mainScreenInstance?.RefreshCustomerData();
                         Console.WriteLine($"Executing SQL: {cmd.CommandText}");
-
+                        Logger.Log("Customer updated: " + textBoxName.Text);
 
                         this.Close();
                     }
@@ -249,6 +252,7 @@ namespace C969_DerekMarquart
 
 
                         MessageBox.Show("Customer created.");
+                        Logger.Log("Customer created: " + textBoxName.Text);
 
                         mainScreenInstance.RefreshCustomerData();
 
@@ -273,6 +277,7 @@ namespace C969_DerekMarquart
             {
                 Console.WriteLine(ex.Message.ToString());
                 MessageBox.Show($"Error: {ex.Message}");
+                Logger.Log("Error: " + ex.Message);
             }
             finally
             {
