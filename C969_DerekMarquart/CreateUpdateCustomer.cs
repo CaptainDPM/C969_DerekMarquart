@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -123,6 +124,28 @@ namespace C969_DerekMarquart
             return lastID;
         }
 
+        private bool ValidateCustomerFields()
+        {
+            if (string.IsNullOrWhiteSpace(textBoxName.Text) ||
+                string.IsNullOrWhiteSpace(textBoxAddress.Text) ||
+                string.IsNullOrWhiteSpace(textBoxPhone.Text))
+            {
+                MessageBox.Show("Please enter all required fields (name, address, phone number).",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            string phonePattern = @"^\d{3}-\d{3}-\d{4}$";
+            if (!Regex.IsMatch(textBoxPhone.Text, phonePattern))
+            {
+                MessageBox.Show("Please enter a valid phone number in the format XXX-XXX-XXXX.",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         private void buttonExit_Click(object sender, EventArgs e)
         {     
             this.Close();
@@ -135,138 +158,147 @@ namespace C969_DerekMarquart
                 conn.Close();
                 conn.Open();
                 
-                if (isUpdateMode)
+                if (!ValidateCustomerFields())
                 {
-                   try
-                    {
-                        MySqlCommand cmd = new MySqlCommand("UPDATE customer " +
-                                                            "SET " +
-                                                            "customerName = @newcustomerName " +
-                                                            "WHERE " +
-                                                            "customerId = @customerID", conn) ;
-
-                        cmd.Parameters.AddWithValue("@newcustomerName", textBoxName.Text);
-                        cmd.Parameters.AddWithValue("@customerID", textBoxID.Text);
-                        Console.WriteLine($"New Customer Name Parameter Value: {cmd.Parameters["@newcustomerName"].Value}");
-
-                        cmd.ExecuteNonQuery();
-
-                        MySqlCommand cmdTwo = new MySqlCommand("UPDATE address " +
-                                                                "SET " +
-                                                                "address = @newaddress, " +
-                                                                "phone = @newphone " +
-                                                                "WHERE " +
-                                                                "addressId = @addressID", conn);
-
-                        cmdTwo.Parameters.AddWithValue("@newaddress", textBoxAddress.Text);
-                        cmdTwo.Parameters.AddWithValue("@newphone", textBoxPhone.Text);
-                        cmdTwo.Parameters.AddWithValue("@addressID", textBoxAddID.Text);
-
-                        cmdTwo.ExecuteNonQuery();
-
-                        MySqlCommand cmdThree = new MySqlCommand("UPDATE city " +
-                                                        "SET " +
-                                                        "city = @newcity " +
-                                                        "WHERE " +
-                                                        "cityId = @cityID", conn);
-
-                        cmdThree.Parameters.AddWithValue("@newcity", textBoxCity.Text);
-                        cmdThree.Parameters.AddWithValue("@cityID", textBoxCityID.Text);
-
-                        cmdThree.ExecuteNonQuery();
-
-                        MySqlCommand cmdFour = new MySqlCommand("UPDATE country " +
-                                                        "SET " +
-                                                        "country = @newcountry " +
-                                                        "WHERE " +
-                                                        "countryId = @countryID", conn);
-
-                        cmdFour.Parameters.AddWithValue("@newcountry", textBoxCountry.Text);
-                        cmdFour.Parameters.AddWithValue("@countryID", textBoxCountryID.Text);
-
-                        cmdFour.ExecuteNonQuery();
-
-                        MessageBox.Show("Update complete.");
-
-                        mainScreenInstance?.RefreshCustomerData();
-                        Console.WriteLine($"Executing SQL: {cmd.CommandText}");
-
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message.ToString());
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-
+                    return;
                 }
                 else
                 {
-                    try
+                    if (isUpdateMode)
                     {
-                        conn.Close();
-                        conn.Open();
-                        MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (countryId, country) VALUES (@countryId, @country);", conn);
+                        try
+                        {
+                            MySqlCommand cmd = new MySqlCommand("UPDATE customer " +
+                                                                "SET " +
+                                                                "customerName = @newcustomerName " +
+                                                                "WHERE " +
+                                                                "customerId = @customerID", conn);
 
-                        cmdInsertCountry.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
-                        cmdInsertCountry.Parameters.AddWithValue("@country", textBoxCountry.Text);
+                            cmd.Parameters.AddWithValue("@newcustomerName", textBoxName.Text);
+                            cmd.Parameters.AddWithValue("@customerID", textBoxID.Text);
+                            Console.WriteLine($"New Customer Name Parameter Value: {cmd.Parameters["@newcustomerName"].Value}");
 
-                        cmdInsertCountry.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
 
-                        long newCountryId = cmdInsertCountry.LastInsertedId;
+                            MySqlCommand cmdTwo = new MySqlCommand("UPDATE address " +
+                                                                    "SET " +
+                                                                    "address = @newaddress, " +
+                                                                    "phone = @newphone " +
+                                                                    "WHERE " +
+                                                                    "addressId = @addressID", conn);
 
-                        MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (cityId, city, countryId) VALUES (@cityId, @city, @countryId);", conn);
+                            cmdTwo.Parameters.AddWithValue("@newaddress", textBoxAddress.Text);
+                            cmdTwo.Parameters.AddWithValue("@newphone", textBoxPhone.Text);
+                            cmdTwo.Parameters.AddWithValue("@addressID", textBoxAddID.Text);
 
-                        cmdInsertCity.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
-                        cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
-                        cmdInsertCity.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
+                            cmdTwo.ExecuteNonQuery();
 
-                        cmdInsertCity.ExecuteNonQuery();
+                            MySqlCommand cmdThree = new MySqlCommand("UPDATE city " +
+                                                            "SET " +
+                                                            "city = @newcity " +
+                                                            "WHERE " +
+                                                            "cityId = @cityID", conn);
 
-                        long newCityId = cmdInsertCity.LastInsertedId;
+                            cmdThree.Parameters.AddWithValue("@newcity", textBoxCity.Text);
+                            cmdThree.Parameters.AddWithValue("@cityID", textBoxCityID.Text);
 
-                        MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (addressId, address, phone, cityId) VALUES (@addressId, @address, @phone, @cityId);", conn);
+                            cmdThree.ExecuteNonQuery();
 
-                        cmdInsertAddress.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
-                        cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
-                        cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
-                        cmdInsertAddress.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
+                            MySqlCommand cmdFour = new MySqlCommand("UPDATE country " +
+                                                            "SET " +
+                                                            "country = @newcountry " +
+                                                            "WHERE " +
+                                                            "countryId = @countryID", conn);
 
-                        cmdInsertAddress.ExecuteNonQuery();
+                            cmdFour.Parameters.AddWithValue("@newcountry", textBoxCountry.Text);
+                            cmdFour.Parameters.AddWithValue("@countryID", textBoxCountryID.Text);
 
-                        long newAddressId = cmdInsertAddress.LastInsertedId;
+                            cmdFour.ExecuteNonQuery();
 
-                        MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerId, customerName, addressId) VALUES (@customerId, @customerName, @addressId);", conn);
+                            MessageBox.Show("Update complete.");
 
-                        cmdInsert.Parameters.AddWithValue("@customerId", textBoxID.Text);
-                        cmdInsert.Parameters.AddWithValue("@customerName", textBoxName.Text);
-                        cmdInsert.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
+                            mainScreenInstance?.RefreshCustomerData();
+                            Console.WriteLine($"Executing SQL: {cmd.CommandText}");
 
-                        cmdInsert.ExecuteNonQuery();
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            MessageBox.Show($"Error: {ex.Message}");
+                        }
 
-                        long newCustomerId = cmdInsert.LastInsertedId;
-
-
-
-                        MessageBox.Show("Customer created.");
-
-                        mainScreenInstance.RefreshCustomerData();
-
-                        this.Close();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine(ex.Message.ToString());
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-                    finally
-                    {
-                        if (conn.State == ConnectionState.Open)
+                        try
                         {
                             conn.Close();
+                            conn.Open();
+                            MySqlCommand cmdInsertCountry = new MySqlCommand("INSERT INTO country (countryId, country) VALUES (@countryId, @country);", conn);
+
+                            cmdInsertCountry.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
+                            cmdInsertCountry.Parameters.AddWithValue("@country", textBoxCountry.Text);
+
+                            cmdInsertCountry.ExecuteNonQuery();
+
+                            long newCountryId = cmdInsertCountry.LastInsertedId;
+
+                            MySqlCommand cmdInsertCity = new MySqlCommand("INSERT INTO city (cityId, city, countryId) VALUES (@cityId, @city, @countryId);", conn);
+
+                            cmdInsertCity.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
+                            cmdInsertCity.Parameters.AddWithValue("@city", textBoxCity.Text);
+                            cmdInsertCity.Parameters.AddWithValue("@countryId", textBoxCountryID.Text);
+
+                            cmdInsertCity.ExecuteNonQuery();
+
+                            long newCityId = cmdInsertCity.LastInsertedId;
+
+                            MySqlCommand cmdInsertAddress = new MySqlCommand("INSERT INTO address (addressId, address, phone, cityId) VALUES (@addressId, @address, @phone, @cityId);", conn);
+
+                            cmdInsertAddress.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
+                            cmdInsertAddress.Parameters.AddWithValue("@address", textBoxAddress.Text);
+                            cmdInsertAddress.Parameters.AddWithValue("@phone", textBoxPhone.Text);
+                            cmdInsertAddress.Parameters.AddWithValue("@cityId", textBoxCityID.Text);
+
+                            cmdInsertAddress.ExecuteNonQuery();
+
+                            long newAddressId = cmdInsertAddress.LastInsertedId;
+
+                            MySqlCommand cmdInsert = new MySqlCommand("INSERT INTO customer (customerId, customerName, addressId) VALUES (@customerId, @customerName, @addressId);", conn);
+
+                            cmdInsert.Parameters.AddWithValue("@customerId", textBoxID.Text);
+                            cmdInsert.Parameters.AddWithValue("@customerName", textBoxName.Text);
+                            cmdInsert.Parameters.AddWithValue("@addressId", textBoxAddID.Text);
+
+                            cmdInsert.ExecuteNonQuery();
+
+                            long newCustomerId = cmdInsert.LastInsertedId;
+
+
+
+                            MessageBox.Show("Customer created.");
+
+                            mainScreenInstance.RefreshCustomerData();
+
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            MessageBox.Show($"Error: {ex.Message}");
+                        }
+                        finally
+                        {
+                            if (conn.State == ConnectionState.Open)
+                            {
+                                conn.Close();
+                            }
                         }
                     }
                 }
+                
+                
 
             }
             catch (Exception ex)

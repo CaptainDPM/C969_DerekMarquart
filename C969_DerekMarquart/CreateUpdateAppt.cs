@@ -56,6 +56,43 @@ namespace C969_DerekMarquart
 
         }
 
+        private DateTime ConvertLocalToUtc(DateTime localTime)
+        {
+            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+            return TimeZoneInfo.ConvertTimeToUtc(localTime, localTimeZone);
+        }
+
+        private DateTime ConvertUtcToLocal(DateTime utcTime)
+        {
+            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+            return TimeZoneInfo.ConvertTimeFromUtc(utcTime, localTimeZone);
+        }
+
+        private DateTime HandleDaylightSavingTime(DateTime time)
+        {
+            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+            if (localTimeZone.IsDaylightSavingTime(time))
+            {
+                time = time.Add(localTimeZone.GetUtcOffset(time).Duration());
+            }
+            return time;
+        }
+
+        private void AdjustAppointmentTimes()
+        {
+            DateTime startUtc = ConvertLocalToUtc(DateTime.Parse(textBoxStart.Text));
+            DateTime endUtc = ConvertLocalToUtc(DateTime.Parse(textBoxEnd.Text));
+
+            startUtc = HandleDaylightSavingTime(startUtc);
+            endUtc = HandleDaylightSavingTime(endUtc);
+
+            DateTime startLocal = ConvertUtcToLocal(startUtc);
+            DateTime endLocal = ConvertUtcToLocal(endUtc);
+
+            textBoxStart.Text = startLocal.ToString("yyyy-MM-dd HH:mm");
+            textBoxEnd.Text = endLocal.ToString("yyyy-MM-dd HH:mm");
+        }
+
         public int GetLastApptID()
         {
             conn.Close();
@@ -154,6 +191,8 @@ namespace C969_DerekMarquart
                 conn.Close();
                 conn.Open();
 
+                AdjustAppointmentTimes();
+
                 if (isUpdateMode)
                 {
                     using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
@@ -236,6 +275,27 @@ namespace C969_DerekMarquart
                                 MessageBox.Show("Appointments must be scheduled during business hours (9:00 a.m. to 5:00 p.m., Monday–Friday, Eastern Standard Time).");
                                 return;
                             }
+
+                            conn.Open();
+
+                            MySqlCommand cmd = new MySqlCommand("SELECT start, end FROM appointment WHERE userId = @userId", conn);
+                            cmd.Parameters.AddWithValue("@userId", textBoxUserID.Text);
+                            MySqlDataReader reader = cmd.ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                DateTime existingStart = reader.GetDateTime(0);
+                                DateTime existingEnd = reader.GetDateTime(1);
+
+                                if (DateTime.Parse(textBoxStart.Text) < existingEnd && DateTime.Parse(textBoxEnd.Text) > existingStart)
+                                {
+                                    MessageBox.Show("Cannot schedule overlapping appointments.");
+                                    reader.Close();
+                                    return;
+                                }
+                            }
+
+                            reader.Close();
 
                             MySqlCommand cmdInsertAppointment = new MySqlCommand("INSERT INTO appointment (appointmentId, customerId, userId, start, end) VALUES (@appoinmentID, @customerID, @userID, @startDate, @endDate);", insertConn);
 
