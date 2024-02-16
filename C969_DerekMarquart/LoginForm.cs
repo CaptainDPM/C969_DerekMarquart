@@ -20,6 +20,8 @@ namespace C969_DerekMarquart
     {
         private Timer timer = new Timer();
         public string loggedInUsername = null;
+        public int UserId { get; private set; }
+
         private CultureInfo CI { get; set; }
 
 
@@ -155,6 +157,13 @@ namespace C969_DerekMarquart
                         cmd.Parameters.AddWithValue("@Username", userName);
                         cmd.Parameters.AddWithValue("@Password", userPass);
 
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            UserId = Convert.ToInt32(result);
+
+                        }
+
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                         if (count > 0)
@@ -173,6 +182,7 @@ namespace C969_DerekMarquart
                             MainScreen mainScreen = new MainScreen();
                             mainScreen.labelUsername.Text = "Logged in as: " + userName;
                             mainScreen.LoginFormInstance = this;
+
 
                             this.Hide();
                             mainScreen.ShowDialog();

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,19 @@ namespace C969_DerekMarquart
         public LoginForm loginForm = new LoginForm();
         MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
         public DateTime SelectedDate { get; set; }
+        public int LoggedInUserId { get; set; }
 
         public LoginForm LoginFormInstance { get; set; }
 
         public MainScreen()
         {
             InitializeComponent();
+        }
+
+        public MainScreen(int loggedInUserId)
+        {
+            InitializeComponent();
+            LoggedInUserId = loggedInUserId;
         }
         public void RefreshCustomerData()
         {
@@ -53,7 +61,7 @@ namespace C969_DerekMarquart
 
             try
             {
-                string query = "SELECT COUNT(*) FROM appointment WHERE Day(start) = Day(@today)";
+                /*string query = "SELECT COUNT(*) FROM appointment WHERE Day(start) = Day(@today)";
 
                 string constr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
 
@@ -76,19 +84,24 @@ namespace C969_DerekMarquart
                             MessageBox.Show("No appointments scheduled for today.");
                         }
                     }
-                }
-                /*foreach (DataGridViewRow row in dataGridAppts.Rows)
-                {
-                    if (row.Cells["StartDate"].Value != null)
-                    {
-                        DateTime startDate = Convert.ToDateTime(row.Cells["StartDate"].Value);
-                        if (startDate.Date == today.Date)
-                        {
-                            MessageBox.Show("You have an appointment scheduled for today!");
-                            return;
-                        }
-                    }
                 }*/
+                conn.Open();
+                DateTime currentTime = DateTime.Now;
+                DateTime currentTimePlus15Minutes = currentTime.AddMinutes(15);
+
+                string query = "SELECT * FROM appointment WHERE start BETWEEN @currentTime AND @currentTimePlus15Minutes AND userId = @userId";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@currentTime", currentTime);
+                cmd.Parameters.AddWithValue("@currentTimePlus15Minutes", currentTimePlus15Minutes);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    MessageBox.Show("You have appointments scheduled within the next 15 minutes!");
+                }
 
             }
             catch (Exception ex)
@@ -324,8 +337,11 @@ namespace C969_DerekMarquart
 
         private void buttonReports_Click(object sender, EventArgs e)
         {
-            Reports reports = new Reports();
-            reports.ShowDialog();
+            
+        }
+        private void comboBoxReports_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
