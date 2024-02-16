@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using C969_DerekMarquart.Properties;
 using System.Globalization;
 using System.Resources;
+using System.IO;
 
 namespace C969_DerekMarquart
 {
@@ -101,6 +102,25 @@ namespace C969_DerekMarquart
             textBox2.PasswordChar = '*';
         }
 
+        private void LogLoginHistory(string username)
+        {
+            string logFilePath = @"C:\Users\Test\source\repos\CaptainDPM\C969_DerekMarquart\C969_DerekMarquart\Login_History.txt";
+            string logMessage = $"{DateTime.Now} - User '{username}' logged in.";
+
+            try
+            {
+                using (StreamWriter writer = File.AppendText(logFilePath))
+                {
+                    writer.WriteLine(logMessage);
+                }
+                Console.WriteLine("Logging to Login History.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error logging login history: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void button1_Click(object sender, EventArgs e)
         {
             string userName = textBox1.Text.Trim();
@@ -111,12 +131,10 @@ namespace C969_DerekMarquart
                 if (CultureInfo.CurrentCulture.Name == "es-CL")
                 {
                     MessageBox.Show("Por favor ingrese un nombre de usuario y contraseña.", "Error de nombre de usuario/contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Logger.Log("Failed to login.");
                 }
                 else
                 {
                     MessageBox.Show("Please enter both a username and password.", "Username/Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Logger.Log("Failed to login.");
                 }
             }
             else
@@ -145,13 +163,13 @@ namespace C969_DerekMarquart
                             if (CultureInfo.CurrentCulture.Name == "es-CL")
                             {
                                 MessageBox.Show("Inicio de sesión exitosa!");
-                                Logger.Log("Logged in as: " + userName);
                             }
                             else
                             {
                                 MessageBox.Show("Login successful!");
-                                Logger.Log("Logged in as: " + userName);
                             }
+
+                            LogLoginHistory(userName);
                             MainScreen mainScreen = new MainScreen();
                             mainScreen.labelUsername.Text = "Logged in as: " + userName;
                             mainScreen.LoginFormInstance = this;
@@ -166,12 +184,10 @@ namespace C969_DerekMarquart
                             if (CultureInfo.CurrentCulture.Name == "es-CL")
                             {
                                 MessageBox.Show("Usuario o contraseña invalido. Inténtalo de nuevo.");
-                                Logger.Log("Failed to login as: " + textBox1.Text);
                             }
                             else
                             {
                                 MessageBox.Show("Invalid username or password. Please try again.");
-                                Logger.Log("Failed to login: " + textBox1.Text);
                             }
                         }
                     }
@@ -179,7 +195,6 @@ namespace C969_DerekMarquart
                 catch (MySqlException ex)
                 {
                     MessageBox.Show(ex.Message);
-                    Logger.Log("Error: " + ex.Message);
                 }
             } 
         }

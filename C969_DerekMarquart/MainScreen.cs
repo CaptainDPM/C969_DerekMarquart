@@ -322,5 +322,10 @@ namespace C969_DerekMarquart
             DisplayAppointments(SelectedDate);
         }
 
+        private void buttonReports_Click(object sender, EventArgs e)
+        {
+            Reports reports = new Reports();
+            reports.ShowDialog();
+        }
     }
 }
