@@ -17,12 +17,13 @@ namespace C969_DerekMarquart
         private MainScreen mainScreenInstance;
         private bool isUpdateMode = false;
         MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        public string loggedInUser;
 
-        
 
-        public CreateUpdateCustomer(MainScreen mainScreen)
+        public CreateUpdateCustomer(MainScreen mainScreen, string loggedInUser)
         {
             InitializeComponent();
+            this.loggedInUser = loggedInUser;
 
             int newCustID = GetLastCustID() + 1;
             int newAddID = GetLastAddID() + 1;
@@ -32,13 +33,16 @@ namespace C969_DerekMarquart
             textBoxAddID.Hide();
             textBoxCityID.Hide();
             textBoxCountryID.Hide();
+            textBoxCreateDate.Hide();
+            textBoxCreatedBy.Hide();
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
             textBoxID.Text = newCustID.ToString();
             textBoxAddID.Text = newAddID.ToString();
             textBoxCityID.Text = newCityID.ToString();
             textBoxCountryID.Text = newCountID.ToString();
-
+            textBoxCreateDate.Text = DateTime.Now.ToString();
+            textBoxCreatedBy.Text = loggedInUser;
         }
 
         public CreateUpdateCustomer(string customerID, string customerName, string addressID ,string address, string phone, string cityID, string city, string countryID, string country)

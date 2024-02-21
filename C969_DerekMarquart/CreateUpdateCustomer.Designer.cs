@@ -46,12 +46,14 @@ namespace C969_DerekMarquart
             this.textBoxAddID = new System.Windows.Forms.TextBox();
             this.textBoxCityID = new System.Windows.Forms.TextBox();
             this.textBoxCountryID = new System.Windows.Forms.TextBox();
+            this.textBoxCreateDate = new System.Windows.Forms.TextBox();
+            this.textBoxCreatedBy = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(193, 390);
+            this.buttonExit.Location = new System.Drawing.Point(193, 427);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(156, 48);
             this.buttonExit.TabIndex = 2;
@@ -147,7 +149,7 @@ namespace C969_DerekMarquart
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(12, 390);
+            this.buttonSave.Location = new System.Drawing.Point(12, 427);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(156, 48);
             this.buttonSave.TabIndex = 13;
@@ -193,12 +195,28 @@ namespace C969_DerekMarquart
             this.textBoxCountryID.Size = new System.Drawing.Size(187, 20);
             this.textBoxCountryID.TabIndex = 18;
             // 
+            // textBoxCreateDate
+            // 
+            this.textBoxCreateDate.Location = new System.Drawing.Point(84, 356);
+            this.textBoxCreateDate.Name = "textBoxCreateDate";
+            this.textBoxCreateDate.Size = new System.Drawing.Size(187, 20);
+            this.textBoxCreateDate.TabIndex = 19;
+            // 
+            // textBoxCreatedBy
+            // 
+            this.textBoxCreatedBy.Location = new System.Drawing.Point(84, 382);
+            this.textBoxCreatedBy.Name = "textBoxCreatedBy";
+            this.textBoxCreatedBy.Size = new System.Drawing.Size(187, 20);
+            this.textBoxCreatedBy.TabIndex = 20;
+            // 
             // CreateUpdateCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(380, 450);
+            this.ClientSize = new System.Drawing.Size(380, 487);
+            this.Controls.Add(this.textBoxCreatedBy);
+            this.Controls.Add(this.textBoxCreateDate);
             this.Controls.Add(this.textBoxCountryID);
             this.Controls.Add(this.textBoxCityID);
             this.Controls.Add(this.textBoxAddID);
@@ -242,5 +260,7 @@ namespace C969_DerekMarquart
         private System.Windows.Forms.TextBox textBoxAddID;
         private System.Windows.Forms.TextBox textBoxCityID;
         private System.Windows.Forms.TextBox textBoxCountryID;
+        private System.Windows.Forms.TextBox textBoxCreateDate;
+        private System.Windows.Forms.TextBox textBoxCreatedBy;
     }
 }

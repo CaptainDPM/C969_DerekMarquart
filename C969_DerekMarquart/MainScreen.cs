@@ -21,10 +21,12 @@ namespace C969_DerekMarquart
         public int LoggedInUserId { get; set; }
 
         public LoginForm LoginFormInstance { get; set; }
+        public string loggedInUser;
 
         public MainScreen()
         {
             InitializeComponent();
+            this.loggedInUser = loggedInUser;
         }
 
         public MainScreen(int loggedInUserId)
@@ -153,7 +155,7 @@ namespace C969_DerekMarquart
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer(this);
+            CreateUpdateCustomer createUpdateCustomer = new CreateUpdateCustomer(this, loggedInUser);
             createUpdateCustomer.Show();
         }
 

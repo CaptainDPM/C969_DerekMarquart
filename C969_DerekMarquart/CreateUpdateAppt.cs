@@ -195,7 +195,7 @@ namespace C969_DerekMarquart
 
                 if (isUpdateMode)
                 {
-                    using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
+                    using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
                     {
                         updateConn.Open();
 
@@ -251,7 +251,7 @@ namespace C969_DerekMarquart
                 }
                 else
                 {
-                    using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
+                    using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
                     {
                         insertConn.Open();
 
