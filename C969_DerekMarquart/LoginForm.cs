@@ -29,6 +29,7 @@ namespace C969_DerekMarquart
         {
             InitializeComponent();
             CheckLanguage();
+            buttonTestConn.Hide();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
 
@@ -106,7 +107,7 @@ namespace C969_DerekMarquart
 
         private void LogLoginHistory(string username)
         {
-            string logFilePath = @"C:\Users\Test\source\repos\CaptainDPM\C969_DerekMarquart\C969_DerekMarquart\Login_History.txt";
+            string logFilePath = @"LocalPath";
             string logMessage = $"{DateTime.Now} - User '{username}' logged in.";
 
             try
