@@ -43,12 +43,22 @@ namespace C969_DerekMarquart
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.labelDescript = new System.Windows.Forms.Label();
+            this.textBoxDescript = new System.Windows.Forms.TextBox();
+            this.labelLocation = new System.Windows.Forms.Label();
+            this.textBoxLocation = new System.Windows.Forms.TextBox();
+            this.labelContact = new System.Windows.Forms.Label();
+            this.textBoxContact = new System.Windows.Forms.TextBox();
+            this.labelType = new System.Windows.Forms.Label();
+            this.textBoxType = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(287, 482);
+            this.buttonExit.Location = new System.Drawing.Point(290, 585);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(156, 48);
             this.buttonExit.TabIndex = 2;
@@ -59,7 +69,7 @@ namespace C969_DerekMarquart
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(30, 482);
+            this.buttonSave.Location = new System.Drawing.Point(36, 585);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(156, 48);
             this.buttonSave.TabIndex = 3;
@@ -90,14 +100,14 @@ namespace C969_DerekMarquart
             // 
             // textBoxStart
             // 
-            this.textBoxStart.Location = new System.Drawing.Point(187, 261);
+            this.textBoxStart.Location = new System.Drawing.Point(188, 471);
             this.textBoxStart.Name = "textBoxStart";
             this.textBoxStart.Size = new System.Drawing.Size(221, 20);
             this.textBoxStart.TabIndex = 7;
             // 
             // textBoxEnd
             // 
-            this.textBoxEnd.Location = new System.Drawing.Point(187, 358);
+            this.textBoxEnd.Location = new System.Drawing.Point(187, 544);
             this.textBoxEnd.Name = "textBoxEnd";
             this.textBoxEnd.Size = new System.Drawing.Size(221, 20);
             this.textBoxEnd.TabIndex = 8;
@@ -140,7 +150,7 @@ namespace C969_DerekMarquart
             this.labelStart.AutoSize = true;
             this.labelStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStart.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelStart.Location = new System.Drawing.Point(70, 237);
+            this.labelStart.Location = new System.Drawing.Point(71, 447);
             this.labelStart.Name = "labelStart";
             this.labelStart.Size = new System.Drawing.Size(77, 16);
             this.labelStart.TabIndex = 12;
@@ -151,7 +161,7 @@ namespace C969_DerekMarquart
             this.labelEnd.AutoSize = true;
             this.labelEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEnd.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelEnd.Location = new System.Drawing.Point(70, 336);
+            this.labelEnd.Location = new System.Drawing.Point(70, 522);
             this.labelEnd.Name = "labelEnd";
             this.labelEnd.Size = new System.Drawing.Size(72, 16);
             this.labelEnd.TabIndex = 13;
@@ -161,7 +171,7 @@ namespace C969_DerekMarquart
             // 
             this.dateTimePickerStart.CustomFormat = "\"yyyy-MM-dd HH:mm\"";
             this.dateTimePickerStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerStart.Location = new System.Drawing.Point(187, 233);
+            this.dateTimePickerStart.Location = new System.Drawing.Point(188, 443);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerStart.TabIndex = 16;
@@ -171,18 +181,118 @@ namespace C969_DerekMarquart
             // 
             this.dateTimePickerEnd.CustomFormat = "\"yyyy-MM-dd HH:mm\"";
             this.dateTimePickerEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerEnd.Location = new System.Drawing.Point(187, 332);
+            this.dateTimePickerEnd.Location = new System.Drawing.Point(187, 518);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerEnd.TabIndex = 17;
             this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.dateTimePickerEnd_ValueChanged);
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelTitle.Location = new System.Drawing.Point(70, 223);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(39, 16);
+            this.labelTitle.TabIndex = 19;
+            this.labelTitle.Text = "Title";
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Location = new System.Drawing.Point(187, 220);
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.Size = new System.Drawing.Size(221, 20);
+            this.textBoxTitle.TabIndex = 18;
+            // 
+            // labelDescript
+            // 
+            this.labelDescript.AutoSize = true;
+            this.labelDescript.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescript.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelDescript.Location = new System.Drawing.Point(70, 269);
+            this.labelDescript.Name = "labelDescript";
+            this.labelDescript.Size = new System.Drawing.Size(87, 16);
+            this.labelDescript.TabIndex = 21;
+            this.labelDescript.Text = "Description";
+            // 
+            // textBoxDescript
+            // 
+            this.textBoxDescript.Location = new System.Drawing.Point(187, 266);
+            this.textBoxDescript.Name = "textBoxDescript";
+            this.textBoxDescript.Size = new System.Drawing.Size(221, 20);
+            this.textBoxDescript.TabIndex = 20;
+            // 
+            // labelLocation
+            // 
+            this.labelLocation.AutoSize = true;
+            this.labelLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelLocation.Location = new System.Drawing.Point(71, 315);
+            this.labelLocation.Name = "labelLocation";
+            this.labelLocation.Size = new System.Drawing.Size(67, 16);
+            this.labelLocation.TabIndex = 23;
+            this.labelLocation.Text = "Location";
+            // 
+            // textBoxLocation
+            // 
+            this.textBoxLocation.Location = new System.Drawing.Point(188, 312);
+            this.textBoxLocation.Name = "textBoxLocation";
+            this.textBoxLocation.Size = new System.Drawing.Size(221, 20);
+            this.textBoxLocation.TabIndex = 22;
+            // 
+            // labelContact
+            // 
+            this.labelContact.AutoSize = true;
+            this.labelContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelContact.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelContact.Location = new System.Drawing.Point(71, 357);
+            this.labelContact.Name = "labelContact";
+            this.labelContact.Size = new System.Drawing.Size(60, 16);
+            this.labelContact.TabIndex = 25;
+            this.labelContact.Text = "Contact";
+            // 
+            // textBoxContact
+            // 
+            this.textBoxContact.Location = new System.Drawing.Point(188, 354);
+            this.textBoxContact.Name = "textBoxContact";
+            this.textBoxContact.Size = new System.Drawing.Size(221, 20);
+            this.textBoxContact.TabIndex = 24;
+            // 
+            // labelType
+            // 
+            this.labelType.AutoSize = true;
+            this.labelType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelType.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelType.Location = new System.Drawing.Point(71, 396);
+            this.labelType.Name = "labelType";
+            this.labelType.Size = new System.Drawing.Size(44, 16);
+            this.labelType.TabIndex = 27;
+            this.labelType.Text = "Type";
+            // 
+            // textBoxType
+            // 
+            this.textBoxType.Location = new System.Drawing.Point(188, 393);
+            this.textBoxType.Name = "textBoxType";
+            this.textBoxType.Size = new System.Drawing.Size(221, 20);
+            this.textBoxType.TabIndex = 26;
             // 
             // CreateUpdateAppt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(481, 542);
+            this.ClientSize = new System.Drawing.Size(481, 645);
+            this.Controls.Add(this.labelType);
+            this.Controls.Add(this.textBoxType);
+            this.Controls.Add(this.labelContact);
+            this.Controls.Add(this.textBoxContact);
+            this.Controls.Add(this.labelLocation);
+            this.Controls.Add(this.textBoxLocation);
+            this.Controls.Add(this.labelDescript);
+            this.Controls.Add(this.textBoxDescript);
+            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.dateTimePickerEnd);
             this.Controls.Add(this.dateTimePickerStart);
             this.Controls.Add(this.labelEnd);
@@ -220,5 +330,15 @@ namespace C969_DerekMarquart
         private System.Windows.Forms.Label labelEnd;
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
         private System.Windows.Forms.DateTimePicker dateTimePickerEnd;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.Label labelDescript;
+        private System.Windows.Forms.TextBox textBoxDescript;
+        private System.Windows.Forms.Label labelLocation;
+        private System.Windows.Forms.TextBox textBoxLocation;
+        private System.Windows.Forms.Label labelContact;
+        private System.Windows.Forms.TextBox textBoxContact;
+        private System.Windows.Forms.Label labelType;
+        private System.Windows.Forms.TextBox textBoxType;
     }
 }

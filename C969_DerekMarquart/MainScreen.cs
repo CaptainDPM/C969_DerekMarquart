@@ -16,7 +16,9 @@ namespace C969_DerekMarquart
     public partial class MainScreen : Form
     {
         public LoginForm loginForm = new LoginForm();
-        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
+
         public DateTime SelectedDate { get; set; }
         public int LoggedInUserId { get; set; }
 
@@ -199,9 +201,14 @@ namespace C969_DerekMarquart
             string userID = selectedRow.Cells["UserID"].Value.ToString();
             string startDate = selectedRow.Cells["StartDate"].Value.ToString();
             string endDate = selectedRow.Cells["EndDate"].Value.ToString();
+            string title = selectedRow.Cells["Title"].Value.ToString();
+            string description = selectedRow.Cells["Description"].Value.ToString();
+            string locationName = selectedRow.Cells["Location"].Value.ToString();
+            string contact = selectedRow.Cells["Contact"].Value.ToString();
+            string apptType = selectedRow.Cells["Type"].Value.ToString();
 
 
-            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt(appointmentID, customerID, userID, startDate, endDate);
+            CreateUpdateAppt createUpdateAppt = new CreateUpdateAppt( appointmentID,  customerID,  userID,  title,  description,  locationName,  contact,  apptType,  startDate,  endDate);
             createUpdateAppt.Show();
         }
 

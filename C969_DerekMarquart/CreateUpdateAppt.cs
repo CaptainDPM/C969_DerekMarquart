@@ -15,7 +15,9 @@ namespace C969_DerekMarquart
     {
         private MainScreen mainScreenInstance;
         private bool isUpdateMode = false;
-        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
+
 
         public CreateUpdateAppt(MainScreen mainScreen)
         {
@@ -35,7 +37,7 @@ namespace C969_DerekMarquart
 
         }
 
-        public CreateUpdateAppt(string appointmentID, string customerID, string userID, string startDate, string endDate)
+        public CreateUpdateAppt(string appointmentID, string customerID, string userID, string title, string description, string locationName, string contact, string apptType, string startDate, string endDate)
         {
             InitializeComponent();
             isUpdateMode = true;
@@ -47,6 +49,11 @@ namespace C969_DerekMarquart
             textBoxUserID.Text = userID;
             textBoxStart.Text = startDate;
             textBoxEnd.Text = endDate;
+            textBoxTitle.Text = title;
+            textBoxDescript.Text = description;
+            textBoxLocation.Text = locationName;
+            textBoxContact.Text = contact;
+            textBoxType.Text = apptType;
             textBoxApptID.ReadOnly = true;
             textBoxApptID.Enabled = false;
             textBoxStart.ReadOnly = true;
@@ -195,7 +202,9 @@ namespace C969_DerekMarquart
 
                 if (isUpdateMode)
                 {
-                    using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
+                    //using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
+                    using (MySqlConnection updateConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
+
                     {
                         updateConn.Open();
 
@@ -251,7 +260,9 @@ namespace C969_DerekMarquart
                 }
                 else
                 {
-                    using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
+                    //using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!"))
+                    using (MySqlConnection insertConn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#"))
+
                     {
                         insertConn.Open();
 
