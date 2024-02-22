@@ -108,7 +108,9 @@ namespace C969_DerekMarquart
         private void LogLoginHistory(string username)
         {
             string logFilePath = @"LocalPath";
-            string logMessage = $"{DateTime.Now} - User '{username}' logged in.";
+            DateTime currentTimeUtc = DateTime.UtcNow;
+            DateTime currentTimeLocal = currentTimeUtc.ToLocalTime();
+            string logMessage = $"{currentTimeLocal} - User '{username}' logged in.";
 
             try
             {
