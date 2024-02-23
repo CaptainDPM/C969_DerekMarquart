@@ -107,7 +107,9 @@ namespace C969_DerekMarquart
 
         private void LogLoginHistory(string username)
         {
-            string logFilePath = @"LocalPath";
+
+            string lowDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Login_History.txt");
             DateTime currentTimeUtc = DateTime.UtcNow;
             DateTime currentTimeLocal = currentTimeUtc.ToLocalTime();
             string logMessage = $"{currentTimeLocal} - User '{username}' logged in.";
@@ -119,6 +121,7 @@ namespace C969_DerekMarquart
                     writer.WriteLine(logMessage);
                 }
                 Console.WriteLine("Logging to Login History.");
+                MessageBox.Show($"Login history has been updated at {logFilePath}.");
             }
             catch (Exception ex)
             {
