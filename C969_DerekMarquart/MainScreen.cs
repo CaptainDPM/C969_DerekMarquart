@@ -56,6 +56,7 @@ namespace C969_DerekMarquart
             }
             dataGridMembers.ReadOnly = true;
             dataGridAppts.ReadOnly = true;
+            comboBoxReports.Hide();
 
         }
 
