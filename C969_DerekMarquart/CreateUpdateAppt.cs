@@ -230,7 +230,12 @@ namespace C969_DerekMarquart
                                                                 "SET " +
                                                                 "customerId = @newcustomerID, " +
                                                                 "start = @newStart, " +
-                                                                "end = @newEnd " +
+                                                                "end = @newEnd, " +
+                                                                "title = @title, " +
+                                                                "description = @description, " +
+                                                                "location = @location, " +
+                                                                "contact = @contact, " +
+                                                                "type = @type " +
                                                                 "WHERE " +
                                                                 "appointmentId = @appointmentID", updateConn);
 
@@ -238,6 +243,11 @@ namespace C969_DerekMarquart
                             cmd.Parameters.AddWithValue("@appointmentID", textBoxApptID.Text);
                             cmd.Parameters.AddWithValue("@newStart", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
                             cmd.Parameters.AddWithValue("@newEnd", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
+                            cmd.Parameters.AddWithValue("@title", textBoxTitle.Text);
+                            cmd.Parameters.AddWithValue("@description", textBoxDescript.Text);
+                            cmd.Parameters.AddWithValue("@location", textBoxLocation.Text);
+                            cmd.Parameters.AddWithValue("@contact", textBoxContact.Text);
+                            cmd.Parameters.AddWithValue("@type", textBoxType.Text);
                             cmd.ExecuteNonQuery();
 
                             MessageBox.Show("Update complete.");
@@ -308,14 +318,18 @@ namespace C969_DerekMarquart
 
                             reader.Close();
 
-                            MySqlCommand cmdInsertAppointment = new MySqlCommand("INSERT INTO appointment (appointmentId, customerId, userId, start, end) VALUES (@appoinmentID, @customerID, @userID, @startDate, @endDate);", insertConn);
+                            MySqlCommand cmdInsertAppointment = new MySqlCommand("INSERT INTO appointment (appointmentId, customerId, userId, start, end, title, description, location, contact, type) VALUES (@appoinmentID, @customerID, @userID, @startDate, @endDate, @title, @description, @location, @contact, @type);", insertConn);
 
                             cmdInsertAppointment.Parameters.AddWithValue("@userID", textBoxUserID.Text);
                             cmdInsertAppointment.Parameters.AddWithValue("@customerID", textBoxCustID.Text);
                             cmdInsertAppointment.Parameters.AddWithValue("@appoinmentID", textBoxApptID.Text);
                             cmdInsertAppointment.Parameters.AddWithValue("@startDate", DateTime.Parse(textBoxStart.Text).ToString("yyyy-MM-dd HH:mm"));
                             cmdInsertAppointment.Parameters.AddWithValue("@endDate", DateTime.Parse(textBoxEnd.Text).ToString("yyyy-MM-dd HH:mm"));
-
+                            cmdInsertAppointment.Parameters.AddWithValue("@title", textBoxTitle.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@description", textBoxDescript.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@location", textBoxLocation.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@contact", textBoxContact.Text);
+                            cmdInsertAppointment.Parameters.AddWithValue("@type", textBoxType.Text);
 
                             cmdInsertAppointment.ExecuteNonQuery();
 

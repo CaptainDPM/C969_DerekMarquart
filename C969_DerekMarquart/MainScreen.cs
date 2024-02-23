@@ -136,7 +136,7 @@ namespace C969_DerekMarquart
         {
             conn.Close();
             conn.Open();
-            string query = "SELECT appointmentId as AppointmentID, customerId as CustomerID, userId as UserID, start as StartDate, end as EndDate FROM appointment WHERE DATE(start) = @selectedDate;";
+            string query = "SELECT appointmentId as AppointmentID, customerId as CustomerID, userId as UserID, title as Title, description as Description, location as Location, contact as Contact, type as Type, start as StartDate, end as EndDate FROM appointment WHERE DATE(start) = @selectedDate;";
             MySqlCommand cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@selectedDate", selectedDate.ToString("yyyy-MM-dd"));
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
