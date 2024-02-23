@@ -16,8 +16,8 @@ namespace C969_DerekMarquart
     {
         private MainScreen mainScreenInstance;
         private bool isUpdateMode = false;
-        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
-        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
+        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
 
         public string loggedInUser;
 

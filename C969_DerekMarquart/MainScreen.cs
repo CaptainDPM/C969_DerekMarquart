@@ -16,8 +16,8 @@ namespace C969_DerekMarquart
     public partial class MainScreen : Form
     {
         public LoginForm loginForm = new LoginForm();
-        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
-        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
+        MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=client_schedule;Username=sqlUser;Password=Passw0rd!");
+        //MySqlConnection conn = new MySqlConnection("Host=localhost;Port=3306;Database=c969;Username=root;Password=abcABC123!@#");
 
         public DateTime SelectedDate { get; set; }
         public int LoggedInUserId { get; set; }
