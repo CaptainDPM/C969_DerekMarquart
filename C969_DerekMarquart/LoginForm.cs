@@ -112,7 +112,7 @@ namespace C969_DerekMarquart
             string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Login_History.txt");
             DateTime currentTimeUtc = DateTime.UtcNow;
             DateTime currentTimeLocal = currentTimeUtc.ToLocalTime();
-            string logMessage = $"{currentTimeLocal} - User '{username}' logged in.";
+            string logMessage = $"{currentTimeUtc} - User '{username}' logged in.";
 
             try
             {
@@ -121,7 +121,7 @@ namespace C969_DerekMarquart
                     writer.WriteLine(logMessage);
                 }
                 Console.WriteLine("Logging to Login History.");
-                MessageBox.Show($"Login history has been updated at {logFilePath}.");
+                MessageBox.Show($"Login history has been updated at {logFilePath} in UTC time.");
             }
             catch (Exception ex)
             {
